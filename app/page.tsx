@@ -677,7 +677,7 @@ export default function Home() {
     )
   }
 
-  // ── Landing Screen ──�����──��───────────────────���───────────────────────────────
+  // ── Landing Screen ──�������──��───────────────────���───────────────────────────────
   if (showLanding) {
     return (
       <main
@@ -913,7 +913,7 @@ export default function Home() {
                   }}
                 >
 
-                  {/* FRONT FACE — transparent-bg artwork over dark background */}
+                  {/* FRONT FACE — full card artwork */}
                   <div style={{
                     position: "absolute", inset: 0,
                     borderRadius: 18, overflow: "hidden",
@@ -921,13 +921,14 @@ export default function Home() {
                     WebkitBackfaceVisibility: "hidden",
                     MozBackfaceVisibility: "hidden",
                     willChange: "transform",
-                    background: "linear-gradient(160deg, #0d1b2a 0%, #060e17 100%)",
                     boxShadow: "0 0 60px rgba(212,168,71,0.28), 0 0 120px rgba(212,168,71,0.10), 0 20px 50px rgba(0,0,0,0.5)",
                   }}>
                     <img
                       src="/images/card-front.webp"
                       alt="LUXX PR exclusive card — front"
                       draggable={false}
+                      loading="eager"
+                      fetchPriority="high"
                       onLoad={fireBurst}
                       style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                     />
