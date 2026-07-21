@@ -417,7 +417,8 @@ export default function Home() {
     if (!showSecret) {
       setCardRevealed(true)
       setShowSecret(true)
-      // Burst fires via onLoad on the card image — nothing to do here
+      // Fire burst immediately on reveal (image is preloaded)
+      fireBurst()
     } else {
       // Hiding the card — send them into the free demo form
       setIsDemoMode(true)
@@ -677,7 +678,7 @@ export default function Home() {
     )
   }
 
-  // ── Landing Screen ──�������──��───────────────────���───────────────────────────────
+  // ── Landing Screen ──���������──��───────────────────���───────────────────────────────
   if (showLanding) {
     return (
       <main
@@ -927,9 +928,6 @@ export default function Home() {
                       src="/images/card-front.webp"
                       alt="LUXX PR exclusive card — front"
                       draggable={false}
-                      loading="eager"
-                      fetchPriority="high"
-                      onLoad={fireBurst}
                       style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                     />
                     {/* Holographic sheen sweep */}
