@@ -334,6 +334,7 @@ export default function Home() {
   const [showLanding, setShowLanding] = useState(true)
   const [showSecret, setShowSecret] = useState(false)
   const [confetti, setConfetti] = useState<{ id: number; tx: number; ty: number; rot: number; color: string; size: number; delay: number; round: boolean }[]>([])
+  const [priceDisplay, setPriceDisplay] = useState(2500)
   const [cardRevealed, setCardRevealed] = useState(false)
   const [isDemoMode, setIsDemoMode] = useState(false)
   const [showDemoInfo, setShowDemoInfo] = useState(false)
@@ -353,6 +354,26 @@ export default function Home() {
   }, [isDemoMode])
   const cardFlippedRef = useRef(false)
   const cardAnimatingRef = useRef(false)
+
+  useEffect(() => {
+    const startTime = Date.now()
+    const duration = 1800 // 1.8 seconds
+    const startValue = 2500
+    const endValue = 500
+
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      const currentValue = Math.floor(startValue + (endValue - startValue) * progress)
+      setPriceDisplay(currentValue)
+
+      if (progress >= 1) {
+        clearInterval(interval)
+      }
+    }, 16) // ~60fps
+
+    return () => clearInterval(interval)
+  }, [])
   const tiltXRef = useRef(0)
   const tiltYRef = useRef(0)
   const cardContainerRef = useRef<HTMLDivElement>(null)
@@ -683,14 +704,13 @@ export default function Home() {
     return (
       <main
         style={{
-          minHeight: "100svh",
+          height: "100svh",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "flex-start",
-          padding: "40px 20px",
-          paddingTop: "clamp(20px, 4vw, 50px)",
-          paddingBottom: "clamp(20px, 4vw, 50px)",
+          justifyContent: "center",
+          padding: "clamp(20px, 3vw, 40px) clamp(16px, 4vw, 20px)",
+          overflow: "hidden",
           background: "transparent",
         }}
       >
@@ -698,26 +718,26 @@ export default function Home() {
         {!cardRevealed && (
         <div
           className="w-full flex flex-col items-center text-center"
-          style={{ maxWidth: 440 }}
+          style={{ maxWidth: 440, maxHeight: "100svh", overflow: "hidden" }}
         >
           {/* Logo */}
-          <div style={{ margin: "-20px 0", paddingBottom: 40 }}>
+          <div style={{ margin: "-20px 0", marginBottom: "clamp(16px, 3vh, 32px)" }}>
             <LukiLogo large={true} />
           </div>
 
           {/* Landing text */}
           <div
-            style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}
+            style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "clamp(12px, 2.5vh, 20px)" }}
           >
             {/* Headline */}
             <h1
               className="luki-fade-up"
               style={{
-                fontSize: 32,
+                fontSize: "clamp(20px, 5vw, 32px)",
                 fontWeight: 800,
                 color: "#f5f5f5",
                 lineHeight: 1.25,
-                marginBottom: 8,
+                marginBottom: 0,
                 textWrap: "balance",
                 animationDelay: "0.05s",
               }}
@@ -726,26 +746,26 @@ export default function Home() {
             </h1>
 
             {/* Price */}
-            <div className="luki-fade-up" style={{ marginBottom: 8, animationDelay: "0.15s" }}>
-              <p style={{ fontSize: 13, fontWeight: 400, color: "rgba(255,255,255,0.5)", letterSpacing: "3px", textTransform: "uppercase", marginBottom: 2 }}>
+            <div className="luki-fade-up" style={{ marginBottom: 0, animationDelay: "0.15s" }}>
+              <p style={{ fontSize: 11, fontWeight: 400, color: "rgba(255,255,255,0.5)", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 1 }}>
                 Prices starting
               </p>
-              <p style={{ fontSize: 13, fontWeight: 300, color: "rgba(255,255,255,0.7)", letterSpacing: "1px", marginBottom: 4 }}>
+              <p style={{ fontSize: 11, fontWeight: 300, color: "rgba(255,255,255,0.7)", letterSpacing: "1px", marginBottom: 2 }}>
                 from just
               </p>
-              <p className="luki-price-glow" style={{ fontSize: 72, fontWeight: 900, color: accentPrimary, lineHeight: 1, letterSpacing: "-2px" }}>
-                $500
+              <p className="luki-price-glow" style={{ fontSize: "clamp(48px, 12vw, 72px)", fontWeight: 900, color: accentPrimary, lineHeight: 1, letterSpacing: "-1px" }}>
+                ${priceDisplay.toLocaleString()}
               </p>
             </div>
 
             {/* Subheading */}
-            <h2 className="luki-fade-up" style={{ fontSize: 28, fontWeight: 700, color: "#f5f5f5", lineHeight: 1.3, marginBottom: 16, animationDelay: "0.25s" }}>
+            <h2 className="luki-fade-up" style={{ fontSize: "clamp(18px, 4vw, 28px)", fontWeight: 700, color: "#f5f5f5", lineHeight: 1.3, marginBottom: 0, animationDelay: "0.25s" }}>
               {"Ready in "}
               <span style={{ color: accentPrimary }}>3 Days!</span>
             </h2>
 
             {/* Description */}
-            <p className="luki-fade-up" style={{ fontSize: 15, color: "#a0aec0", lineHeight: 1.6, marginBottom: 32, maxWidth: 340, animationDelay: "0.35s" }}>
+            <p className="luki-fade-up" style={{ fontSize: "clamp(13px, 3vw, 15px)", color: "#a0aec0", lineHeight: 1.5, marginBottom: 0, maxWidth: 340, animationDelay: "0.35s" }}>
               From zero to online in just 3 days without breaking the bank! Plus FREE hosting for 1 year!
             </p>
 
@@ -754,7 +774,7 @@ export default function Home() {
               type="button"
               onClick={() => setShowLanding(false)}
               className="luki-cta-button"
-              style={{ marginBottom: 36 }}
+              style={{ marginBottom: 0 }}
             >
               <span>{"GET YOURS"}</span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 43">
@@ -770,7 +790,7 @@ export default function Home() {
             </div>
 
             {/* Social proof */}
-            <p className="luki-fade-up" style={{ fontSize: 16, color: "#f5f5f5", lineHeight: 1.5, marginTop: 14, maxWidth: 320, animationDelay: "0.65s" }}>
+            <p className="luki-fade-up" style={{ fontSize: "clamp(12px, 2.5vw, 16px)", color: "#f5f5f5", lineHeight: 1.4, marginTop: 0, maxWidth: 320, animationDelay: "0.65s" }}>
               {"We've helped "}
               <span style={{ color: accentPrimary, fontWeight: 700 }}>100+</span>
               {" businesses get online with our 3 Day website programme"}
@@ -810,7 +830,17 @@ export default function Home() {
         {/* 3D Gold card reveal — centered in viewport */}
         {showSecret && (
             <div
-              style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", marginTop: "auto", marginBottom: "auto" }}
+              style={{ 
+                position: "relative", 
+                display: "flex", 
+                flexDirection: "column", 
+                alignItems: "center", 
+                justifyContent: "center",
+                height: "100%",
+                width: "100%",
+                maxWidth: 500,
+                overflow: "hidden",
+              }}
             >
               {/* Piñata burst — blasts outward from behind the card */}
               <div className="luki-burst-origin" aria-hidden="true">
@@ -835,7 +865,7 @@ export default function Home() {
               </div>
 
               {/* Title above card */}
-              <div className="luki-card-title" style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center", gap: 10, marginBottom: 26, textAlign: "center", width: "100%", maxWidth: 460, paddingLeft: 12, paddingRight: 12, boxSizing: "border-box" }}>
+              <div className="luki-card-title" style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center", gap: "clamp(6px, 2vw, 10px)", marginBottom: "clamp(12px, 3vw, 26px)", textAlign: "center", width: "100%", maxWidth: 460, paddingLeft: 12, paddingRight: 12, boxSizing: "border-box", flexShrink: 0 }}>
                 <p style={{ fontSize: 11, letterSpacing: "4px", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", fontWeight: 600, margin: 0 }}>
                   Congratulations
                 </p>
@@ -893,14 +923,36 @@ export default function Home() {
                     ? "rotateY(180deg)"
                     : "rotateX(0deg) rotateY(0deg)"
                 }}
+                onTouchMove={(e) => {
+                  if (cardAnimatingRef.current || !cardInnerRef.current || e.touches.length === 0) return
+                  const rect = e.currentTarget.getBoundingClientRect()
+                  const px = (e.touches[0].clientX - rect.left) / rect.width   // 0→1
+                  const py = (e.touches[0].clientY - rect.top) / rect.height    // 0→1
+                  const rotX = (py - 0.5) * -22  // tilt up/down
+                  const rotY = (px - 0.5) * 22   // tilt left/right
+                  cardInnerRef.current.style.transition = "transform 0.08s ease-out"
+                  cardInnerRef.current.style.transform = cardFlippedRef.current
+                    ? `rotateY(180deg) rotateX(${-rotX}deg) rotateY(${-rotY}deg)`
+                    : `rotateX(${rotX}deg) rotateY(${rotY}deg)`
+                }}
+                onTouchEnd={() => {
+                  if (!cardInnerRef.current) return
+                  cardInnerRef.current.style.transition = "transform 0.4s ease-out"
+                  cardInnerRef.current.style.transform = cardFlippedRef.current
+                    ? "rotateY(180deg)"
+                    : "rotateX(0deg) rotateY(0deg)"
+                }}
                 style={{
-                  width: 280, height: 424,
+                  width: "clamp(200px, 80vw, 280px)",
+                  height: "clamp(300px, 120vw, 424px)",
                   perspective: "1200px",
                   cursor: "pointer",
                   userSelect: "none",
                   flexShrink: 0,
                   position: "relative",
                   zIndex: 2,
+                  maxWidth: "100%",
+                  maxHeight: "60svh",
                 }}
               >
                 <div
