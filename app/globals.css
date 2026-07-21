@@ -397,15 +397,10 @@ body {
 .luki-tracker:nth-child(24):hover ~ #luki-card { transform: rotateX(-20deg) rotateY(5deg); }
 .luki-tracker:nth-child(25):hover ~ #luki-card { transform: rotateX(-20deg) rotateY(10deg); }
 
-/* Piñata burst — pieces explode outward from a single point behind the card */
+/* Piñata burst — pieces explode outward from center */
 .luki-burst-origin {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 1000px;
-  height: 800px;
-  margin-left: -500px;
-  margin-top: -400px;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
@@ -413,8 +408,8 @@ body {
 
 .luki-burst-piece {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
   display: block;
   pointer-events: none;
   will-change: transform, opacity;
