@@ -334,6 +334,7 @@ export default function Home() {
   const [showLanding, setShowLanding] = useState(true)
   const [showSecret, setShowSecret] = useState(false)
   const [confetti, setConfetti] = useState<{ id: number; tx: number; ty: number; rot: number; color: string; size: number; delay: number; round: boolean }[]>([])
+  const [priceDisplay, setPriceDisplay] = useState(2500)
   const [cardRevealed, setCardRevealed] = useState(false)
   const [isDemoMode, setIsDemoMode] = useState(false)
   const [showDemoInfo, setShowDemoInfo] = useState(false)
@@ -353,6 +354,26 @@ export default function Home() {
   }, [isDemoMode])
   const cardFlippedRef = useRef(false)
   const cardAnimatingRef = useRef(false)
+
+  useEffect(() => {
+    const startTime = Date.now()
+    const duration = 1800 // 1.8 seconds
+    const startValue = 2500
+    const endValue = 500
+
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      const currentValue = Math.floor(startValue + (endValue - startValue) * progress)
+      setPriceDisplay(currentValue)
+
+      if (progress >= 1) {
+        clearInterval(interval)
+      }
+    }, 16) // ~60fps
+
+    return () => clearInterval(interval)
+  }, [])
   const tiltXRef = useRef(0)
   const tiltYRef = useRef(0)
   const cardContainerRef = useRef<HTMLDivElement>(null)
@@ -733,7 +754,7 @@ export default function Home() {
                 from just
               </p>
               <p className="luki-price-glow" style={{ fontSize: "clamp(48px, 12vw, 72px)", fontWeight: 900, color: accentPrimary, lineHeight: 1, letterSpacing: "-1px" }}>
-                $500
+                ${priceDisplay.toLocaleString()}
               </p>
             </div>
 
