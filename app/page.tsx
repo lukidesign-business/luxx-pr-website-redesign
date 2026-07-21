@@ -718,7 +718,7 @@ export default function Home() {
         {!cardRevealed && (
         <div
           className="w-full flex flex-col items-center text-center"
-          style={{ maxWidth: 440, height: "100%", width: "100%", overflow: "hidden", padding: "clamp(20px, 3vw, 40px) clamp(16px, 4vw, 20px)", boxSizing: "border-box" }}
+          style={{ maxWidth: "min(720px, 92vw)", height: "100%", width: "100%", overflow: "hidden", padding: "clamp(20px, 3vw, 48px) clamp(16px, 4vw, 32px)", boxSizing: "border-box", justifyContent: "center" }}
         >
           {/* Logo */}
           <div style={{ margin: "-20px 0", marginBottom: "clamp(16px, 3vh, 32px)" }}>
@@ -733,12 +733,14 @@ export default function Home() {
             <h1
               className="luki-fade-up"
               style={{
-                fontSize: "clamp(20px, 5vw, 32px)",
+                fontSize: "clamp(28px, 5vw, 52px)",
                 fontWeight: 800,
                 color: "#f5f5f5",
-                lineHeight: 1.25,
+                lineHeight: 1.15,
                 marginBottom: 0,
                 textWrap: "balance",
+                maxWidth: 620,
+                letterSpacing: "-0.5px",
                 animationDelay: "0.05s",
               }}
             >
@@ -747,25 +749,25 @@ export default function Home() {
 
             {/* Price */}
             <div className="luki-fade-up" style={{ marginBottom: 0, animationDelay: "0.15s" }}>
-              <p style={{ fontSize: 11, fontWeight: 400, color: "rgba(255,255,255,0.5)", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 1 }}>
+              <p style={{ fontSize: "clamp(11px, 1.2vw, 14px)", fontWeight: 400, color: "rgba(255,255,255,0.5)", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 1 }}>
                 Prices starting
               </p>
-              <p style={{ fontSize: 11, fontWeight: 300, color: "rgba(255,255,255,0.7)", letterSpacing: "1px", marginBottom: 2 }}>
+              <p style={{ fontSize: "clamp(11px, 1.2vw, 14px)", fontWeight: 300, color: "rgba(255,255,255,0.7)", letterSpacing: "1px", marginBottom: 2 }}>
                 from just
               </p>
-              <p className="luki-price-glow" style={{ fontSize: "clamp(48px, 12vw, 72px)", fontWeight: 900, color: accentPrimary, lineHeight: 1, letterSpacing: "-1px" }}>
+              <p className="luki-price-glow" style={{ fontSize: "clamp(48px, 12vw, 104px)", fontWeight: 900, color: accentPrimary, lineHeight: 1, letterSpacing: "-2px" }}>
                 ${priceDisplay.toLocaleString()}
               </p>
             </div>
 
             {/* Subheading */}
-            <h2 className="luki-fade-up" style={{ fontSize: "clamp(18px, 4vw, 28px)", fontWeight: 700, color: "#f5f5f5", lineHeight: 1.3, marginBottom: 0, animationDelay: "0.25s" }}>
+            <h2 className="luki-fade-up" style={{ fontSize: "clamp(18px, 4vw, 38px)", fontWeight: 700, color: "#f5f5f5", lineHeight: 1.25, marginBottom: 0, animationDelay: "0.25s" }}>
               {"Ready in "}
               <span style={{ color: accentPrimary }}>3 Days!</span>
             </h2>
 
             {/* Description */}
-            <p className="luki-fade-up" style={{ fontSize: "clamp(13px, 3vw, 15px)", color: "#a0aec0", lineHeight: 1.5, marginBottom: 0, maxWidth: 340, animationDelay: "0.35s" }}>
+            <p className="luki-fade-up" style={{ fontSize: "clamp(13px, 3vw, 18px)", color: "#a0aec0", lineHeight: 1.6, marginBottom: 0, maxWidth: 460, animationDelay: "0.35s" }}>
               From zero to online in just 3 days without breaking the bank! Plus FREE hosting for 1 year!
             </p>
 
@@ -790,7 +792,7 @@ export default function Home() {
             </div>
 
             {/* Social proof */}
-            <p className="luki-fade-up" style={{ fontSize: "clamp(12px, 2.5vw, 16px)", color: "#f5f5f5", lineHeight: 1.4, marginTop: 0, maxWidth: 320, animationDelay: "0.65s" }}>
+            <p className="luki-fade-up" style={{ fontSize: "clamp(12px, 2.5vw, 18px)", color: "#f5f5f5", lineHeight: 1.5, marginTop: 0, maxWidth: 420, animationDelay: "0.65s" }}>
               {"We've helped "}
               <span style={{ color: accentPrimary, fontWeight: 700 }}>100+</span>
               {" businesses get online with our 3 Day website programme"}
