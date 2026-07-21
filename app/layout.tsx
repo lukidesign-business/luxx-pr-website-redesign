@@ -18,6 +18,8 @@ export const viewport: Viewport = {
   themeColor: '#050d14',
 }
 
+export const dynamic = 'force-dynamic'
+
 export default function RootLayout({
   children,
 }: {
@@ -25,6 +27,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="bg-[#050d14]">
+      <head>
+        <link rel="preload" as="image" href="/images/card-front.webp" fetchPriority="high" />
+      </head>
       <body className={`${inter.variable} font-sans`}>
         <LayoutWrapper>{children}</LayoutWrapper>
       </body>

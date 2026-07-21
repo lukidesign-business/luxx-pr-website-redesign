@@ -333,7 +333,7 @@ function StarRating() {
 export default function Home() {
   const [showLanding, setShowLanding] = useState(true)
   const [showSecret, setShowSecret] = useState(false)
-  const [confetti, setConfetti] = useState<{ id: number; x: number; color: string; delay: number }[]>([])
+  const [confetti, setConfetti] = useState<{ id: number; tx: number; ty: number; rot: number; color: string; size: number; delay: number; round: boolean }[]>([])
   const [cardRevealed, setCardRevealed] = useState(false)
   const [isDemoMode, setIsDemoMode] = useState(false)
   const [showDemoInfo, setShowDemoInfo] = useState(false)
@@ -393,18 +393,32 @@ export default function Home() {
     }
   }, [showSecret])
 
+  function fireBurst() {
+    const palette = ["#d4a847", "#e8c35a", "#f5e6b8", "#ffffff", "#fffef0", "#0d1b3e", "#1a2f5e", "#102040"]
+    const pieces = Array.from({ length: 60 }, (_, i) => {
+      const angle = Math.random() * Math.PI * 2
+      const dist = 120 + Math.random() * 200
+      return {
+        id: i,
+        tx: Math.cos(angle) * dist,
+        ty: Math.sin(angle) * dist,
+        rot: (Math.random() - 0.5) * 900,
+        color: palette[Math.floor(Math.random() * palette.length)],
+        size: 7 + Math.random() * 9,
+        delay: Math.random() * 0.12,
+        round: Math.random() > 0.6,
+      }
+    })
+    setConfetti(pieces)
+    setTimeout(() => setConfetti([]), 2200)
+  }
+
   function triggerSecret() {
     if (!showSecret) {
       setCardRevealed(true)
-      const pieces = Array.from({ length: 28 }, (_, i) => ({
-        id: i,
-        x: Math.random() * 280 + 10,
-        color: ["#d4a847", "#f5e6b8", "#fff", "#f59e0b", "#e8c35a", "#ffd700"][Math.floor(Math.random() * 6)],
-        delay: Math.random() * 0.5,
-      }))
-      setConfetti(pieces)
-      setTimeout(() => setConfetti([]), 1800)
       setShowSecret(true)
+      // Fire burst immediately on reveal (image is preloaded)
+      fireBurst()
     } else {
       // Hiding the card — send them into the free demo form
       setIsDemoMode(true)
@@ -664,7 +678,7 @@ export default function Home() {
     )
   }
 
-  // ── Landing Screen ─────��───────────────────────────────────────────────────
+  // ── Landing Screen ──���������──��───────────────────���───────────────────────────────
   if (showLanding) {
     return (
       <main
@@ -697,6 +711,7 @@ export default function Home() {
           >
             {/* Headline */}
             <h1
+              className="luki-fade-up"
               style={{
                 fontSize: 32,
                 fontWeight: 800,
@@ -704,32 +719,33 @@ export default function Home() {
                 lineHeight: 1.25,
                 marginBottom: 8,
                 textWrap: "balance",
+                animationDelay: "0.05s",
               }}
             >
               Your brand deserves a digital presence that converts.
             </h1>
 
             {/* Price */}
-            <div style={{ marginBottom: 8 }}>
+            <div className="luki-fade-up" style={{ marginBottom: 8, animationDelay: "0.15s" }}>
               <p style={{ fontSize: 13, fontWeight: 400, color: "rgba(255,255,255,0.5)", letterSpacing: "3px", textTransform: "uppercase", marginBottom: 2 }}>
                 Prices starting
               </p>
               <p style={{ fontSize: 13, fontWeight: 300, color: "rgba(255,255,255,0.7)", letterSpacing: "1px", marginBottom: 4 }}>
                 from just
               </p>
-              <p style={{ fontSize: 72, fontWeight: 900, color: accentPrimary, lineHeight: 1, letterSpacing: "-2px" }}>
+              <p className="luki-price-glow" style={{ fontSize: 72, fontWeight: 900, color: accentPrimary, lineHeight: 1, letterSpacing: "-2px" }}>
                 $500
               </p>
             </div>
 
             {/* Subheading */}
-            <h2 style={{ fontSize: 28, fontWeight: 700, color: "#f5f5f5", lineHeight: 1.3, marginBottom: 16 }}>
+            <h2 className="luki-fade-up" style={{ fontSize: 28, fontWeight: 700, color: "#f5f5f5", lineHeight: 1.3, marginBottom: 16, animationDelay: "0.25s" }}>
               {"Ready in "}
               <span style={{ color: accentPrimary }}>3 Days!</span>
             </h2>
 
             {/* Description */}
-            <p style={{ fontSize: 15, color: "#a0aec0", lineHeight: 1.6, marginBottom: 32, maxWidth: 340 }}>
+            <p className="luki-fade-up" style={{ fontSize: 15, color: "#a0aec0", lineHeight: 1.6, marginBottom: 32, maxWidth: 340, animationDelay: "0.35s" }}>
               From zero to online in just 3 days without breaking the bank! Plus FREE hosting for 1 year!
             </p>
 
@@ -740,7 +756,7 @@ export default function Home() {
               className="luki-cta-button"
               style={{ marginBottom: 36 }}
             >
-              <span style={{ color: "#ffffff" }}>{"GET YOUR'S"}</span>
+              <span>{"GET YOURS"}</span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 43">
                 <polygon points="39.58,4.46 44.11,0 66,21.5 44.11,43 39.58,38.54 56.94,21.5" />
                 <polygon points="19.79,4.46 24.32,0 46.21,21.5 24.32,43 19.79,38.54 37.15,21.5" />
@@ -749,10 +765,12 @@ export default function Home() {
             </button>
 
             {/* Stars */}
-            <StarRating />
+            <div className="luki-fade-up" style={{ animationDelay: "0.55s" }}>
+              <StarRating />
+            </div>
 
             {/* Social proof */}
-            <p style={{ fontSize: 16, color: "#f5f5f5", lineHeight: 1.5, marginTop: 14, maxWidth: 320 }}>
+            <p className="luki-fade-up" style={{ fontSize: 16, color: "#f5f5f5", lineHeight: 1.5, marginTop: 14, maxWidth: 320, animationDelay: "0.65s" }}>
               {"We've helped "}
               <span style={{ color: accentPrimary, fontWeight: 700 }}>100+</span>
               {" businesses get online with our 3 Day website programme"}
@@ -766,11 +784,20 @@ export default function Home() {
                 aria-label="Reveal secret offer"
                 className="luki-secret-trigger"
               >
-                <div className="trigger-glow">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4a847" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-                    <line x1="12" y1="17" x2="12.01" y2="17" />
+                <div className="trigger-orb">
+                  {/* Orbiting sparkle ring */}
+                  <span className="orb-ring" aria-hidden="true" />
+                  <span className="orb-ring orb-ring-2" aria-hidden="true" />
+                  {/* Sparkles */}
+                  <span className="orb-sparkle s1" aria-hidden="true">✦</span>
+                  <span className="orb-sparkle s2" aria-hidden="true">✧</span>
+                  <span className="orb-sparkle s3" aria-hidden="true">✦</span>
+                  {/* Gift / mystery icon */}
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f5e6b8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ position: "relative", zIndex: 2 }}>
+                    <rect x="3" y="8" width="18" height="4" rx="1" />
+                    <path d="M12 8v13" />
+                    <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7" />
+                    <path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5" />
                   </svg>
                 </div>
                 <span className="trigger-label">psst... tap me</span>
@@ -785,24 +812,54 @@ export default function Home() {
             <div
               style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", marginTop: "auto", marginBottom: "auto" }}
             >
-              {/* Confetti */}
-              {confetti.map((p) => (
-                <div
-                  key={p.id}
-                  className="luki-confetti-piece"
+              {/* Piñata burst — blasts outward from behind the card */}
+              <div className="luki-burst-origin" aria-hidden="true">
+                {confetti.map((p) => (
+                  <span
+                    key={p.id}
+                    className="luki-burst-piece"
+                    style={
+                      {
+                        width: p.size,
+                        height: p.round ? p.size : p.size * 0.5,
+                        borderRadius: p.round ? "50%" : "1px",
+                        background: p.color,
+                        animationDelay: `${p.delay}s`,
+                        "--tx": `${p.tx}px`,
+                        "--ty": `${p.ty}px`,
+                        "--rot": `${p.rot}deg`,
+                      } as React.CSSProperties
+                    }
+                  />
+                ))}
+              </div>
+
+              {/* Title above card */}
+              <div className="luki-card-title" style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center", gap: 10, marginBottom: 26, textAlign: "center", width: "100%", maxWidth: 460, paddingLeft: 12, paddingRight: 12, boxSizing: "border-box" }}>
+                <p style={{ fontSize: 11, letterSpacing: "4px", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", fontWeight: 600, margin: 0 }}>
+                  Congratulations
+                </p>
+                <h2
                   style={{
-                    left: p.x,
-                    top: 0,
-                    background: p.color,
-                    animationDelay: `${p.delay}s`,
+                    fontSize: "clamp(1.75rem, 7vw, 2.6rem)",
+                    fontWeight: 800,
+                    lineHeight: 1.15,
+                    letterSpacing: "-0.5px",
+                    margin: 0,
+                    color: "#ffffff",
+                    textWrap: "balance",
+                    textShadow: "0 2px 24px rgba(0,0,0,0.5)",
                   }}
-                />
-              ))}
+                >
+                  You just got yourself a free website demo!
+                </h2>
+                <div style={{ width: 60, height: 1, marginTop: 2, background: "linear-gradient(90deg, transparent, rgba(212,168,71,0.55), transparent)" }} />
+              </div>
 
               {/* Flip Card */}
               <div
                 ref={cardContainerRef}
-                className="luki-card-entry"
+                className="luki-card-entry luki-card-float"
                 onClick={() => {
                   if (cardAnimatingRef.current) return
                   const next = !cardFlippedRef.current
@@ -837,11 +894,13 @@ export default function Home() {
                     : "rotateX(0deg) rotateY(0deg)"
                 }}
                 style={{
-                  width: 300, height: 360,
-                  perspective: "1000px",
+                  width: 280, height: 424,
+                  perspective: "1200px",
                   cursor: "pointer",
                   userSelect: "none",
                   flexShrink: 0,
+                  position: "relative",
+                  zIndex: 2,
                 }}
               >
                 <div
@@ -855,157 +914,68 @@ export default function Home() {
                   }}
                 >
 
-                  {/* FRONT FACE */}
+                  {/* FRONT FACE — full card artwork */}
                   <div style={{
                     position: "absolute", inset: 0,
-                    borderRadius: 20, overflow: "hidden",
+                    borderRadius: 18, overflow: "hidden",
                     backfaceVisibility: "hidden",
                     WebkitBackfaceVisibility: "hidden",
                     MozBackfaceVisibility: "hidden",
                     willChange: "transform",
-                    background: "linear-gradient(145deg, #1a1508 0%, #0d0b04 30%, #1a1508 60%, #0d0b04 100%)",
-                    border: "1px solid rgba(212,168,71,0.45)",
-                    boxShadow: "0 0 50px rgba(212,168,71,0.2), 0 0 100px rgba(212,168,71,0.08), inset 0 0 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(212,168,71,0.2)",
-                    display: "flex", flexDirection: "column", alignItems: "center",
-                    padding: "16px 20px 16px", boxSizing: "border-box",
+                    boxShadow: "0 0 60px rgba(212,168,71,0.28), 0 0 120px rgba(212,168,71,0.10), 0 20px 50px rgba(0,0,0,0.5)",
                   }}>
-                    {/* Stripe overlay */}
-                    <div style={{ position: "absolute", inset: 0, borderRadius: 20, pointerEvents: "none", background: "repeating-linear-gradient(105deg, transparent 0%, rgba(255,255,255,0.025) 1px, transparent 2px, transparent 10px)" }} />
-                    {/* Gold shimmer */}
-                    <div className="luki-gold-shimmer" style={{ position: "absolute", inset: 0, borderRadius: 20, pointerEvents: "none", overflow: "hidden" }} />
-                    {/* Corner gradient */}
-                    <div style={{ position: "absolute", inset: -1, borderRadius: 20, background: "linear-gradient(145deg, rgba(212,168,71,0.5), transparent 35%, rgba(245,230,184,0.15) 65%, transparent)", pointerEvents: "none", opacity: 0.6 }} />
-
-                    {/* Content — pinned top/bottom, centred middle */}
-                    <div style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center", width: "100%", height: "100%" }}>
-
-                      {/* Top row — pinned */}
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", flexShrink: 0 }}>
-                        <div style={{ background: "rgba(212,168,71,0.12)", border: "1px solid rgba(212,168,71,0.45)", borderRadius: 6, padding: "2px 9px", fontSize: 8, letterSpacing: "2px", textTransform: "uppercase" as const, color: GOLD, fontWeight: 700 }}>
-                          Exclusive
-                        </div>
-                        <div style={{ display: "flex", gap: 2 }}>
-                          {[1,2,3,4,5].map(s => <span key={s} style={{ fontSize: 11, color: GOLD }}>★</span>)}
-                        </div>
-                      </div>
-
-                      {/* Centre group — takes all remaining space and centres content */}
-                      <div style={{ flex: 1, display: "flex", flexDirection: "column" as const, alignItems: "center", justifyContent: "center", gap: 0 }}>
-                        {/* Crown icon */}
-                        <div style={{ width: 60, height: 60, borderRadius: "50%", background: "radial-gradient(circle, rgba(212,168,71,0.25) 0%, transparent 70%)", border: "1.5px solid rgba(212,168,71,0.4)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 0 28px rgba(212,168,71,0.18)", marginBottom: 16 }}>
-                          <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M2 4l3 12h14l3-12-5 4-5-4-5 4-3-4z" /><path d="M5 16h14v4H5z" />
-                          </svg>
-                        </div>
-                        <p style={{ fontSize: 9, letterSpacing: "3px", textTransform: "uppercase" as const, color: GOLD, fontWeight: 700, marginBottom: 10, textShadow: `0 0 10px ${GOLD_GLOW}` }}>
-                          Congratulations!
-                        </p>
-                        <p style={{ fontSize: 17, fontWeight: 800, color: "#fff", lineHeight: 1.35, textShadow: `0 0 20px ${GOLD_GLOW}`, textAlign: "center" as const, maxWidth: 220 }}>
-                          You just got yourself a free demo!
-                        </p>
-                      </div>
-
-                      {/* Bottom flip hint — pinned */}
-                      <div style={{ display: "flex", flexDirection: "column" as const, alignItems: "center", gap: 8, flexShrink: 0 }}>
-                        <div style={{ width: 52, height: 1, background: `linear-gradient(90deg, transparent, ${GOLD}, transparent)` }} />
-                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" /><path d="M21 3v5h-5" />
-                          </svg>
-                          <span style={{ fontSize: 9, color: "rgba(212,168,71,0.8)", letterSpacing: "1.5px", textTransform: "uppercase" as const, fontWeight: 600 }}>
-                            Click to learn more
-                          </span>
-                        </div>
-                      </div>
-
-                    </div>
+                    <img
+                      src="/images/card-front.webp"
+                      alt="LUXX PR exclusive card — front"
+                      draggable={false}
+                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                    />
+                    {/* Holographic sheen sweep */}
+                    <div className="luki-holo-sheen" style={{ position: "absolute", inset: 0, pointerEvents: "none" }} />
                   </div>
 
-                  {/* BACK FACE */}
+                  {/* BACK FACE — full-bleed card artwork */}
                   <div style={{
                     position: "absolute", inset: 0,
-                    borderRadius: 20, overflow: "hidden",
+                    borderRadius: 18, overflow: "hidden",
                     backfaceVisibility: "hidden",
                     WebkitBackfaceVisibility: "hidden",
                     MozBackfaceVisibility: "hidden",
                     willChange: "transform",
                     transform: "rotateY(180deg)",
-                    background: "linear-gradient(145deg, #1a1508 0%, #0d0b04 30%, #1a1508 60%, #0d0b04 100%)",
-                    border: "1px solid rgba(212,168,71,0.45)",
-                    boxShadow: "0 0 50px rgba(212,168,71,0.2), 0 0 100px rgba(212,168,71,0.08), inset 0 0 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(212,168,71,0.2)",
-                    display: "flex", flexDirection: "column", alignItems: "center",
-                    padding: "20px 22px 16px", boxSizing: "border-box",
+                    boxShadow: "0 0 60px rgba(212,168,71,0.28), 0 0 120px rgba(212,168,71,0.10), 0 20px 50px rgba(0,0,0,0.5)",
                   }}>
-                    {/* Stripe overlay */}
-                    <div style={{ position: "absolute", inset: 0, borderRadius: 20, pointerEvents: "none", background: "repeating-linear-gradient(105deg, transparent 0%, rgba(255,255,255,0.025) 1px, transparent 2px, transparent 10px)" }} />
-                    {/* Corner gradient */}
-                    <div style={{ position: "absolute", inset: -1, borderRadius: 20, background: "linear-gradient(145deg, rgba(212,168,71,0.5), transparent 35%, rgba(245,230,184,0.15) 65%, transparent)", pointerEvents: "none", opacity: 0.6 }} />
-
-                    {/* Content */}
-                    <div style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center", width: "100%", height: "100%" }}>
-                      <p style={{ fontSize: 9, letterSpacing: "2.5px", textTransform: "uppercase" as const, color: GOLD, fontWeight: 700, marginBottom: 8, textShadow: `0 0 8px ${GOLD_GLOW}` }}>
-                        How it works
-                      </p>
-                      <div style={{ width: 48, height: 1, marginBottom: 18, background: `linear-gradient(90deg, transparent, ${GOLD}, transparent)` }} />
-                      {[
-                        { n: "1", t: "Fill in the short form" },
-                        { n: "2", t: "We build your website, completely free" },
-                        { n: "3", t: "You review your tailored demo" },
-                        { n: "4", t: "Only pay if you like the outcome" },
-                      ].map(({ n, t }) => (
-                        <div key={n} style={{ display: "flex", alignItems: "flex-start", gap: 12, marginBottom: 16, width: "100%" }}>
-                          <div style={{ width: 22, height: 22, borderRadius: "50%", flexShrink: 0, background: "rgba(212,168,71,0.15)", border: "1px solid rgba(212,168,71,0.4)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700, color: GOLD }}>
-                            {n}
-                          </div>
-                          <p style={{ fontSize: 12, color: "rgba(255,255,255,0.8)", lineHeight: 1.5, margin: 0, paddingTop: 3 }}>{t}</p>
-                        </div>
-                      ))}
-                      <div style={{ flex: 1 }} />
-                      <div style={{ background: "rgba(212,168,71,0.08)", border: "1px solid rgba(212,168,71,0.22)", borderRadius: 8, padding: "8px 12px", textAlign: "center" as const, width: "100%", marginBottom: 10 }}>
-                        <p style={{ fontSize: 11, color: GOLD_LIGHT, lineHeight: 1.5, fontWeight: 500, margin: 0 }}>
-                          Zero risk. Zero hassle. Pay only if you like it.
-                        </p>
-                      </div>
-                      <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" /><path d="M21 3v5h-5" />
-                        </svg>
-                        <span style={{ fontSize: 9, color: "rgba(212,168,71,0.6)", letterSpacing: "1.5px", textTransform: "uppercase" as const }}>Tap to flip back</span>
-                      </div>
-                    </div>
+                    <img
+                      src="/images/card-back.webp"
+                      alt="LUXX PR card — how it works: fill in the short form, we build your website completely free, you review your tailored demo, only pay if you like the outcome"
+                      draggable={false}
+                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                    />
+                    {/* Holographic sheen sweep */}
+                    <div className="luki-holo-sheen" style={{ position: "absolute", inset: 0, pointerEvents: "none" }} />
                   </div>
 
                 </div>
               </div>
 
-              {/* Hide button — outside card, big and clear */}
+              {/* Flip instruction — visible only when card front is shown */}
+              <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 16, opacity: cardFlipped ? 0 : 1, transition: "opacity 0.3s ease", pointerEvents: "none" }}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" /><path d="M21 3v5h-5" />
+                </svg>
+                <span style={{ fontSize: 10, color: "rgba(212,168,71,0.75)", letterSpacing: "2px", textTransform: "uppercase", fontWeight: 600 }}>
+                  Tap card to see how it works
+                </span>
+              </div>
+
+              {/* Claim button — gold glow */}
               <button
                 type="button"
                 onClick={triggerSecret}
-                style={{
-                  marginTop: 20,
-                  padding: "14px 40px",
-                  borderRadius: 9999,
-                  background: "rgba(255,255,255,0.08)",
-                  border: "1px solid rgba(255,255,255,0.18)",
-                  color: "rgba(255,255,255,0.75)",
-                  fontSize: 15,
-                  fontWeight: 600,
-                  letterSpacing: "0.5px",
-                  cursor: "pointer",
-                  backdropFilter: "blur(8px)",
-                  transition: "all 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.14)"
-                  ;(e.currentTarget as HTMLButtonElement).style.color = "#ffffff"
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.08)"
-                  ;(e.currentTarget as HTMLButtonElement).style.color = "rgba(255,255,255,0.75)"
-                }}
+                className="luki-claim-button"
+                style={{ marginTop: 26, position: "relative", zIndex: 2 }}
               >
-                Claim your free demo
+                Claim now
               </button>
             </div>
           )}
