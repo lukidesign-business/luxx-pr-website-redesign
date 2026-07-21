@@ -434,7 +434,7 @@ body {
   }
   100% {
     opacity: 0;
-    transform: translate(-50%, -50%) translate(calc(var(--tx) * 1.05), calc(var(--ty) + 260px)) rotate(var(--rot)) scale(0.9);
+    transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(1);
   }
 }
 
