@@ -393,27 +393,31 @@ export default function Home() {
     }
   }, [showSecret])
 
+  function fireBurst() {
+    const palette = ["#d4a847", "#e8c35a", "#f5e6b8", "#ffffff", "#fffef0", "#0d1b3e", "#1a2f5e", "#102040"]
+    const pieces = Array.from({ length: 60 }, (_, i) => {
+      const angle = Math.random() * Math.PI * 2
+      const dist = 120 + Math.random() * 200
+      return {
+        id: i,
+        tx: Math.cos(angle) * dist,
+        ty: Math.sin(angle) * dist,
+        rot: (Math.random() - 0.5) * 900,
+        color: palette[Math.floor(Math.random() * palette.length)],
+        size: 7 + Math.random() * 9,
+        delay: Math.random() * 0.12,
+        round: Math.random() > 0.6,
+      }
+    })
+    setConfetti(pieces)
+    setTimeout(() => setConfetti([]), 2200)
+  }
+
   function triggerSecret() {
     if (!showSecret) {
       setCardRevealed(true)
-      const palette = ["#d4a847", "#f5e6b8", "#ffffff", "#f59e0b", "#e8c35a", "#ffd700", "#9db9d5", "#ff6b6b"]
-      const pieces = Array.from({ length: 60 }, (_, i) => {
-        const angle = Math.random() * Math.PI * 2
-        const dist = 120 + Math.random() * 200
-        return {
-          id: i,
-          tx: Math.cos(angle) * dist,
-          ty: Math.sin(angle) * dist,
-          rot: (Math.random() - 0.5) * 900,
-          color: palette[Math.floor(Math.random() * palette.length)],
-          size: 7 + Math.random() * 9,
-          delay: Math.random() * 0.12,
-          round: Math.random() > 0.6,
-        }
-      })
-      setConfetti(pieces)
-      setTimeout(() => setConfetti([]), 2200)
       setShowSecret(true)
+      // Burst fires via onLoad on the card image — nothing to do here
     } else {
       // Hiding the card — send them into the free demo form
       setIsDemoMode(true)
@@ -673,7 +677,7 @@ export default function Home() {
     )
   }
 
-  // ── Landing Screen ─────��───────────────────────────────────────────────────
+  // ── Landing Screen ─────��───────────────────���───────────────────────────────
   if (showLanding) {
     return (
       <main
@@ -846,7 +850,7 @@ export default function Home() {
                     textShadow: "0 2px 24px rgba(0,0,0,0.5)",
                   }}
                 >
-                  You just got yourself a free demo!
+                  You just got yourself a free website demo!
                 </h2>
                 <div style={{ width: 60, height: 1, marginTop: 2, background: "linear-gradient(90deg, transparent, rgba(212,168,71,0.55), transparent)" }} />
               </div>
@@ -909,7 +913,7 @@ export default function Home() {
                   }}
                 >
 
-                  {/* FRONT FACE — full-bleed card artwork */}
+                  {/* FRONT FACE — transparent-bg artwork over dark background */}
                   <div style={{
                     position: "absolute", inset: 0,
                     borderRadius: 18, overflow: "hidden",
@@ -917,13 +921,15 @@ export default function Home() {
                     WebkitBackfaceVisibility: "hidden",
                     MozBackfaceVisibility: "hidden",
                     willChange: "transform",
+                    background: "linear-gradient(160deg, #0d1b2a 0%, #060e17 100%)",
                     boxShadow: "0 0 60px rgba(212,168,71,0.28), 0 0 120px rgba(212,168,71,0.10), 0 20px 50px rgba(0,0,0,0.5)",
                   }}>
                     <img
                       src="/images/card-front.webp"
                       alt="LUXX PR exclusive card — front"
                       draggable={false}
-                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                      onLoad={fireBurst}
+                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", display: "block" }}
                     />
                     {/* Holographic sheen sweep */}
                     <div className="luki-holo-sheen" style={{ position: "absolute", inset: 0, pointerEvents: "none" }} />
@@ -960,7 +966,7 @@ export default function Home() {
                 className="luki-claim-button"
                 style={{ marginTop: 26, position: "relative", zIndex: 2 }}
               >
-                Claim your free demo
+                Claim now
               </button>
             </div>
           )}
