@@ -717,129 +717,114 @@ export default function Home() {
         {/* When card is revealed, only render card — fully centered in the viewport */}
         {!cardRevealed && (
         <div
-          className="luki-landing-wrapper"
-          style={{ height: "100%", width: "100%", overflow: "hidden", boxSizing: "border-box" }}
+          className="w-full flex flex-col items-center text-center"
+          style={{ maxWidth: "min(720px, 92vw)", height: "100%", width: "100%", overflow: "hidden", padding: "clamp(20px, 3vw, 48px) clamp(16px, 4vw, 32px)", boxSizing: "border-box", justifyContent: "center" }}
         >
-          {/* ── Logo row ── */}
-          <div className="luki-landing-logo">
+          {/* Logo */}
+          <div style={{ margin: "-20px 0", marginBottom: "clamp(16px, 3vh, 32px)" }}>
             <LukiLogo large={true} />
           </div>
 
-          {/* ── Two-column on desktop, single-column on mobile ── */}
-          <div className="luki-landing-grid">
+          {/* Landing text */}
+          <div
+            style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "clamp(12px, 2.5vh, 20px)" }}
+          >
+            {/* Headline */}
+            <h1
+              className="luki-fade-up"
+              style={{
+                fontSize: "clamp(28px, 5vw, 52px)",
+                fontWeight: 800,
+                color: "#f5f5f5",
+                lineHeight: 1.15,
+                marginBottom: 0,
+                textWrap: "balance",
+                maxWidth: 620,
+                letterSpacing: "-0.5px",
+                animationDelay: "0.05s",
+              }}
+            >
+              Your brand deserves a digital presence that converts.
+            </h1>
 
-            {/* LEFT — headline + meta */}
-            <div className="luki-landing-left">
-              <h1 className="luki-fade-up luki-landing-h1" style={{ animationDelay: "0.05s" }}>
-                Your brand deserves a digital presence that converts.
-              </h1>
-
-              <h2 className="luki-fade-up luki-landing-h2" style={{ animationDelay: "0.2s" }}>
-                {"Ready in "}
-                <span style={{ color: accentPrimary }}>3 Days!</span>
-              </h2>
-
-              {/* Price — mobile only (inline in flow) */}
-              <div className="luki-fade-up luki-price-mobile" style={{ animationDelay: "0.25s" }}>
-                <p className="luki-price-label">Prices starting from just</p>
-                <p className="luki-price-glow luki-price-number">
-                  ${priceDisplay.toLocaleString()}
-                </p>
-              </div>
-
-              <p className="luki-fade-up luki-landing-desc" style={{ animationDelay: "0.3s" }}>
-                From zero to online in just 3 days without breaking the bank! Plus FREE hosting for 1 year!
+            {/* Price */}
+            <div className="luki-fade-up" style={{ marginBottom: 0, animationDelay: "0.15s" }}>
+              <p style={{ fontSize: "clamp(11px, 1.2vw, 14px)", fontWeight: 400, color: "rgba(255,255,255,0.5)", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 1 }}>
+                Prices starting
               </p>
+              <p style={{ fontSize: "clamp(11px, 1.2vw, 14px)", fontWeight: 300, color: "rgba(255,255,255,0.7)", letterSpacing: "1px", marginBottom: 2 }}>
+                from just
+              </p>
+              <p className="luki-price-glow" style={{ fontSize: "clamp(48px, 12vw, 104px)", fontWeight: 900, color: accentPrimary, lineHeight: 1, letterSpacing: "-2px" }}>
+                ${priceDisplay.toLocaleString()}
+              </p>
+            </div>
 
-              {/* CTA */}
-              <div className="luki-fade-up" style={{ animationDelay: "0.4s" }}>
-                <button
-                  type="button"
-                  onClick={() => setShowLanding(false)}
-                  className="luki-cta-button"
-                  style={{ marginBottom: 0 }}
-                >
-                  <span>{"GET YOURS"}</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 43">
-                    <polygon points="39.58,4.46 44.11,0 66,21.5 44.11,43 39.58,38.54 56.94,21.5" />
-                    <polygon points="19.79,4.46 24.32,0 46.21,21.5 24.32,43 19.79,38.54 37.15,21.5" />
-                    <polygon points="0,4.46 4.53,0 26.42,21.5 4.53,43 0,38.54 17.36,21.5" />
+            {/* Subheading */}
+            <h2 className="luki-fade-up" style={{ fontSize: "clamp(18px, 4vw, 38px)", fontWeight: 700, color: "#f5f5f5", lineHeight: 1.25, marginBottom: 0, animationDelay: "0.25s" }}>
+              {"Ready in "}
+              <span style={{ color: accentPrimary }}>3 Days!</span>
+            </h2>
+
+            {/* Description */}
+            <p className="luki-fade-up" style={{ fontSize: "clamp(13px, 3vw, 18px)", color: "#a0aec0", lineHeight: 1.6, marginBottom: 0, maxWidth: 460, animationDelay: "0.35s" }}>
+              From zero to online in just 3 days without breaking the bank! Plus FREE hosting for 1 year!
+            </p>
+
+            {/* CTA Button */}
+            <button
+              type="button"
+              onClick={() => setShowLanding(false)}
+              className="luki-cta-button"
+              style={{ marginBottom: 0 }}
+            >
+              <span>{"GET YOURS"}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 43">
+                <polygon points="39.58,4.46 44.11,0 66,21.5 44.11,43 39.58,38.54 56.94,21.5" />
+                <polygon points="19.79,4.46 24.32,0 46.21,21.5 24.32,43 19.79,38.54 37.15,21.5" />
+                <polygon points="0,4.46 4.53,0 26.42,21.5 4.53,43 0,38.54 17.36,21.5" />
+              </svg>
+            </button>
+
+            {/* Stars */}
+            <div className="luki-fade-up" style={{ animationDelay: "0.55s" }}>
+              <StarRating />
+            </div>
+
+            {/* Social proof */}
+            <p className="luki-fade-up" style={{ fontSize: "clamp(12px, 2.5vw, 18px)", color: "#f5f5f5", lineHeight: 1.5, marginTop: 0, maxWidth: 420, animationDelay: "0.65s" }}>
+              {"We've helped "}
+              <span style={{ color: accentPrimary, fontWeight: 700 }}>100+</span>
+              {" businesses get online with our 3 Day website programme"}
+            </p>
+
+            {/* Secret trigger */}
+            {!showSecret && (
+              <button
+                type="button"
+                onClick={triggerSecret}
+                aria-label="Reveal secret offer"
+                className="luki-secret-trigger"
+              >
+                <div className="trigger-orb">
+                  {/* Orbiting sparkle ring */}
+                  <span className="orb-ring" aria-hidden="true" />
+                  <span className="orb-ring orb-ring-2" aria-hidden="true" />
+                  {/* Sparkles */}
+                  <span className="orb-sparkle s1" aria-hidden="true">✦</span>
+                  <span className="orb-sparkle s2" aria-hidden="true">✧</span>
+                  <span className="orb-sparkle s3" aria-hidden="true">✦</span>
+                  {/* Gift / mystery icon */}
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f5e6b8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ position: "relative", zIndex: 2 }}>
+                    <rect x="3" y="8" width="18" height="4" rx="1" />
+                    <path d="M12 8v13" />
+                    <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7" />
+                    <path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5" />
                   </svg>
-                </button>
-              </div>
-
-              {/* Stars + social proof */}
-              <div className="luki-fade-up" style={{ animationDelay: "0.5s" }}>
-                <StarRating />
-                <p className="luki-landing-social">
-                  {"We've helped "}
-                  <span style={{ color: accentPrimary, fontWeight: 700 }}>100+</span>
-                  {" businesses get online with our 3 Day website programme"}
-                </p>
-              </div>
-
-              {/* psst — mobile only */}
-              {!showSecret && (
-                <button
-                  type="button"
-                  onClick={triggerSecret}
-                  aria-label="Reveal secret offer"
-                  className="luki-secret-trigger luki-fade-up luki-psst-mobile"
-                  style={{ animationDelay: "0.6s" } as React.CSSProperties}
-                >
-                  <div className="trigger-orb">
-                    <span className="orb-ring" aria-hidden="true" />
-                    <span className="orb-ring orb-ring-2" aria-hidden="true" />
-                    <span className="orb-sparkle s1" aria-hidden="true">✦</span>
-                    <span className="orb-sparkle s2" aria-hidden="true">✧</span>
-                    <span className="orb-sparkle s3" aria-hidden="true">✦</span>
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f5e6b8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ position: "relative", zIndex: 2 }}>
-                      <rect x="3" y="8" width="18" height="4" rx="1" />
-                      <path d="M12 8v13" />
-                      <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7" />
-                      <path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5" />
-                    </svg>
-                  </div>
-                  <span className="trigger-label">psst... tap me</span>
-                </button>
-              )}
-            </div>
-
-            {/* RIGHT — price + psst (desktop only) */}
-            <div className="luki-landing-right luki-right-desktop">
-              <div className="luki-fade-up" style={{ animationDelay: "0.15s" }}>
-                <p className="luki-price-label">Prices starting from just</p>
-                <p className="luki-price-glow luki-price-number">
-                  ${priceDisplay.toLocaleString()}
-                </p>
-              </div>
-
-              {/* Secret trigger */}
-              {!showSecret && (
-                <button
-                  type="button"
-                  onClick={triggerSecret}
-                  aria-label="Reveal secret offer"
-                  className="luki-secret-trigger luki-fade-up"
-                  style={{ animationDelay: "0.6s" } as React.CSSProperties}
-                >
-                  <div className="trigger-orb">
-                    <span className="orb-ring" aria-hidden="true" />
-                    <span className="orb-ring orb-ring-2" aria-hidden="true" />
-                    <span className="orb-sparkle s1" aria-hidden="true">✦</span>
-                    <span className="orb-sparkle s2" aria-hidden="true">✧</span>
-                    <span className="orb-sparkle s3" aria-hidden="true">✦</span>
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f5e6b8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ position: "relative", zIndex: 2 }}>
-                      <rect x="3" y="8" width="18" height="4" rx="1" />
-                      <path d="M12 8v13" />
-                      <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7" />
-                      <path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5" />
-                    </svg>
-                  </div>
-                  <span className="trigger-label">psst... tap me</span>
-                </button>
-              )}
-            </div>
+                </div>
+                <span className="trigger-label">psst... tap me</span>
+              </button>
+            )}
           </div>
         </div>
         )}
