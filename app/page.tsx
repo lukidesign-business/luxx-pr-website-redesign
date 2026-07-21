@@ -709,7 +709,7 @@ export default function Home() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          padding: "clamp(20px, 3vw, 40px) clamp(16px, 4vw, 20px)",
+          padding: 0,
           overflow: "hidden",
           background: "transparent",
         }}
@@ -718,7 +718,7 @@ export default function Home() {
         {!cardRevealed && (
         <div
           className="w-full flex flex-col items-center text-center"
-          style={{ maxWidth: 440, maxHeight: "100svh", overflow: "hidden" }}
+          style={{ maxWidth: 440, height: "100%", width: "100%", overflow: "hidden", padding: "clamp(20px, 3vw, 40px) clamp(16px, 4vw, 20px)", boxSizing: "border-box" }}
         >
           {/* Logo */}
           <div style={{ margin: "-20px 0", marginBottom: "clamp(16px, 3vh, 32px)" }}>
