@@ -696,11 +696,11 @@ export default function Home() {
         {/* When card is revealed, only render card — fully centered in the viewport */}
         {!cardRevealed && (
         <div
-          className="w-full flex flex-col items-center text-center overflow-y-auto"
-          style={{ maxWidth: 440, maxHeight: "100%" }}
+          className="w-full flex flex-col items-center text-center"
+          style={{ maxWidth: 440, maxHeight: "100svh", overflow: "hidden" }}
         >
           {/* Logo */}
-          <div style={{ margin: "-20px 0", paddingBottom: 40 }}>
+          <div style={{ margin: "-20px 0", paddingBottom: "clamp(16px, 2vh, 32px)" }}>
             <LukiLogo large={true} />
           </div>
 
@@ -712,11 +712,11 @@ export default function Home() {
             <h1
               className="luki-fade-up"
               style={{
-                fontSize: 32,
+                fontSize: "clamp(20px, 5vw, 32px)",
                 fontWeight: 800,
                 color: "#f5f5f5",
                 lineHeight: 1.25,
-                marginBottom: 8,
+                marginBottom: "clamp(4px, 1vh, 8px)",
                 textWrap: "balance",
                 animationDelay: "0.05s",
               }}
@@ -725,26 +725,26 @@ export default function Home() {
             </h1>
 
             {/* Price */}
-            <div className="luki-fade-up" style={{ marginBottom: 8, animationDelay: "0.15s" }}>
-              <p style={{ fontSize: 13, fontWeight: 400, color: "rgba(255,255,255,0.5)", letterSpacing: "3px", textTransform: "uppercase", marginBottom: 2 }}>
+            <div className="luki-fade-up" style={{ marginBottom: "clamp(4px, 1vh, 8px)", animationDelay: "0.15s" }}>
+              <p style={{ fontSize: 11, fontWeight: 400, color: "rgba(255,255,255,0.5)", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 1 }}>
                 Prices starting
               </p>
-              <p style={{ fontSize: 13, fontWeight: 300, color: "rgba(255,255,255,0.7)", letterSpacing: "1px", marginBottom: 4 }}>
+              <p style={{ fontSize: 11, fontWeight: 300, color: "rgba(255,255,255,0.7)", letterSpacing: "1px", marginBottom: 2 }}>
                 from just
               </p>
-              <p className="luki-price-glow" style={{ fontSize: 72, fontWeight: 900, color: accentPrimary, lineHeight: 1, letterSpacing: "-2px" }}>
+              <p className="luki-price-glow" style={{ fontSize: "clamp(48px, 12vw, 72px)", fontWeight: 900, color: accentPrimary, lineHeight: 1, letterSpacing: "-1px" }}>
                 $500
               </p>
             </div>
 
             {/* Subheading */}
-            <h2 className="luki-fade-up" style={{ fontSize: 28, fontWeight: 700, color: "#f5f5f5", lineHeight: 1.3, marginBottom: 16, animationDelay: "0.25s" }}>
+            <h2 className="luki-fade-up" style={{ fontSize: "clamp(18px, 4vw, 28px)", fontWeight: 700, color: "#f5f5f5", lineHeight: 1.3, marginBottom: "clamp(8px, 1.5vh, 16px)", animationDelay: "0.25s" }}>
               {"Ready in "}
               <span style={{ color: accentPrimary }}>3 Days!</span>
             </h2>
 
             {/* Description */}
-            <p className="luki-fade-up" style={{ fontSize: 15, color: "#a0aec0", lineHeight: 1.6, marginBottom: 32, maxWidth: 340, animationDelay: "0.35s" }}>
+            <p className="luki-fade-up" style={{ fontSize: "clamp(13px, 3vw, 15px)", color: "#a0aec0", lineHeight: 1.5, marginBottom: "clamp(12px, 2vh, 24px)", maxWidth: 340, animationDelay: "0.35s" }}>
               From zero to online in just 3 days without breaking the bank! Plus FREE hosting for 1 year!
             </p>
 
@@ -753,7 +753,7 @@ export default function Home() {
               type="button"
               onClick={() => setShowLanding(false)}
               className="luki-cta-button"
-              style={{ marginBottom: 36 }}
+              style={{ marginBottom: "clamp(12px, 2vh, 24px)" }}
             >
               <span>{"GET YOURS"}</span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 43">
@@ -769,7 +769,7 @@ export default function Home() {
             </div>
 
             {/* Social proof */}
-            <p className="luki-fade-up" style={{ fontSize: 16, color: "#f5f5f5", lineHeight: 1.5, marginTop: 14, maxWidth: 320, animationDelay: "0.65s" }}>
+            <p className="luki-fade-up" style={{ fontSize: "clamp(12px, 2.5vw, 16px)", color: "#f5f5f5", lineHeight: 1.4, marginTop: "clamp(8px, 1vh, 14px)", maxWidth: 320, animationDelay: "0.65s" }}>
               {"We've helped "}
               <span style={{ color: accentPrimary, fontWeight: 700 }}>100+</span>
               {" businesses get online with our 3 Day website programme"}
