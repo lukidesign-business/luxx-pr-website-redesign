@@ -929,7 +929,7 @@ export default function Home() {
                       alt="LUXX PR exclusive card — front"
                       draggable={false}
                       onLoad={fireBurst}
-                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", display: "block" }}
+                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                     />
                     {/* Holographic sheen sweep */}
                     <div className="luki-holo-sheen" style={{ position: "absolute", inset: 0, pointerEvents: "none" }} />

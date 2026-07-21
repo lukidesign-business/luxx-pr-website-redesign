@@ -399,13 +399,14 @@ body {
 
 /* Piñata burst — pieces explode outward from a single point behind the card */
 .luki-burst-origin {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 0;
   pointer-events: none;
+  overflow: hidden;
 }
 
 .luki-burst-piece {
