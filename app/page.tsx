@@ -333,7 +333,7 @@ function StarRating() {
 export default function Home() {
   const [showLanding, setShowLanding] = useState(true)
   const [showSecret, setShowSecret] = useState(false)
-  const [confetti, setConfetti] = useState<{ id: number; x: number; color: string; delay: number }[]>([])
+  const [confetti, setConfetti] = useState<{ id: number; tx: number; ty: number; rot: number; color: string; size: number; delay: number; round: boolean }[]>([])
   const [cardRevealed, setCardRevealed] = useState(false)
   const [isDemoMode, setIsDemoMode] = useState(false)
   const [showDemoInfo, setShowDemoInfo] = useState(false)
@@ -396,14 +396,23 @@ export default function Home() {
   function triggerSecret() {
     if (!showSecret) {
       setCardRevealed(true)
-      const pieces = Array.from({ length: 28 }, (_, i) => ({
-        id: i,
-        x: Math.random() * 280 + 10,
-        color: ["#d4a847", "#f5e6b8", "#fff", "#f59e0b", "#e8c35a", "#ffd700"][Math.floor(Math.random() * 6)],
-        delay: Math.random() * 0.5,
-      }))
+      const palette = ["#d4a847", "#f5e6b8", "#ffffff", "#f59e0b", "#e8c35a", "#ffd700", "#9db9d5", "#ff6b6b"]
+      const pieces = Array.from({ length: 60 }, (_, i) => {
+        const angle = Math.random() * Math.PI * 2
+        const dist = 120 + Math.random() * 200
+        return {
+          id: i,
+          tx: Math.cos(angle) * dist,
+          ty: Math.sin(angle) * dist,
+          rot: (Math.random() - 0.5) * 900,
+          color: palette[Math.floor(Math.random() * palette.length)],
+          size: 7 + Math.random() * 9,
+          delay: Math.random() * 0.12,
+          round: Math.random() > 0.6,
+        }
+      })
       setConfetti(pieces)
-      setTimeout(() => setConfetti([]), 1800)
+      setTimeout(() => setConfetti([]), 2200)
       setShowSecret(true)
     } else {
       // Hiding the card — send them into the free demo form
@@ -798,29 +807,48 @@ export default function Home() {
             <div
               style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", marginTop: "auto", marginBottom: "auto" }}
             >
-              {/* Confetti */}
-              {confetti.map((p) => (
-                <div
-                  key={p.id}
-                  className="luki-confetti-piece"
-                  style={{
-                    left: p.x,
-                    top: 0,
-                    background: p.color,
-                    animationDelay: `${p.delay}s`,
-                  }}
-                />
-              ))}
+              {/* Piñata burst — blasts outward from behind the card */}
+              <div className="luki-burst-origin" aria-hidden="true">
+                {confetti.map((p) => (
+                  <span
+                    key={p.id}
+                    className="luki-burst-piece"
+                    style={
+                      {
+                        width: p.size,
+                        height: p.round ? p.size : p.size * 0.5,
+                        borderRadius: p.round ? "50%" : "1px",
+                        background: p.color,
+                        animationDelay: `${p.delay}s`,
+                        "--tx": `${p.tx}px`,
+                        "--ty": `${p.ty}px`,
+                        "--rot": `${p.rot}deg`,
+                      } as React.CSSProperties
+                    }
+                  />
+                ))}
+              </div>
 
               {/* Title above card */}
-              <div className="luki-card-title" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, marginBottom: 22, textAlign: "center" }}>
-                <p style={{ fontSize: 11, letterSpacing: "4px", textTransform: "uppercase", color: GOLD, fontWeight: 700, margin: 0, textShadow: `0 0 12px ${GOLD_GLOW}` }}>
+              <div className="luki-card-title" style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center", gap: 10, marginBottom: 26, textAlign: "center", width: "100%", maxWidth: 460, paddingLeft: 12, paddingRight: 12, boxSizing: "border-box" }}>
+                <p style={{ fontSize: 11, letterSpacing: "4px", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", fontWeight: 600, margin: 0 }}>
                   Congratulations
                 </p>
-                <h2 className="luki-shimmer-text" style={{ fontSize: 26, fontWeight: 800, lineHeight: 1.25, margin: 0, maxWidth: 340, textWrap: "balance" }}>
+                <h2
+                  style={{
+                    fontSize: "clamp(1.75rem, 7vw, 2.6rem)",
+                    fontWeight: 800,
+                    lineHeight: 1.15,
+                    letterSpacing: "-0.5px",
+                    margin: 0,
+                    color: "#ffffff",
+                    textWrap: "balance",
+                    textShadow: "0 2px 24px rgba(0,0,0,0.5)",
+                  }}
+                >
                   You just got yourself a free demo!
                 </h2>
-                <div style={{ width: 70, height: 1, marginTop: 6, background: `linear-gradient(90deg, transparent, ${GOLD}, transparent)` }} />
+                <div style={{ width: 60, height: 1, marginTop: 2, background: "linear-gradient(90deg, transparent, rgba(212,168,71,0.55), transparent)" }} />
               </div>
 
               {/* Flip Card */}
@@ -866,6 +894,8 @@ export default function Home() {
                   cursor: "pointer",
                   userSelect: "none",
                   flexShrink: 0,
+                  position: "relative",
+                  zIndex: 2,
                 }}
               >
                 <div
@@ -923,21 +953,12 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Flip hint — hidden when flipped (back artwork has its own) */}
-              <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 16, opacity: cardFlipped ? 0 : 1, transition: "opacity 0.3s ease" }}>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" /><path d="M21 3v5h-5" />
-                </svg>
-                <span style={{ fontSize: 10, color: "rgba(212,168,71,0.75)", letterSpacing: "2px", textTransform: "uppercase", fontWeight: 600 }}>
-                  Tap card to see how it works
-                </span>
-              </div>
-
               {/* Claim button — gold glow */}
               <button
                 type="button"
                 onClick={triggerSecret}
                 className="luki-claim-button"
+                style={{ marginTop: 26, position: "relative", zIndex: 2 }}
               >
                 Claim your free demo
               </button>
