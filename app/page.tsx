@@ -716,9 +716,11 @@ export default function Home() {
       >
         {/* When card is revealed, only render card — fully centered in the viewport */}
         {!cardRevealed && (
+        <>
+        {/* ── MOBILE / TABLET landing (unchanged single column) ── */}
         <div
-          className="w-full flex flex-col items-center text-center"
-          style={{ maxWidth: 440, height: "100%", width: "100%", overflow: "hidden", padding: "clamp(20px, 3vw, 40px) clamp(16px, 4vw, 20px)", boxSizing: "border-box" }}
+          className="w-full flex flex-col items-center text-center luki-landing-mobile"
+          style={{ maxWidth: "min(720px, 92vw)", height: "100%", width: "100%", overflow: "hidden", padding: "clamp(20px, 3vw, 48px) clamp(16px, 4vw, 32px)", boxSizing: "border-box", justifyContent: "center" }}
         >
           {/* Logo */}
           <div style={{ margin: "-20px 0", marginBottom: "clamp(16px, 3vh, 32px)" }}>
@@ -733,12 +735,14 @@ export default function Home() {
             <h1
               className="luki-fade-up"
               style={{
-                fontSize: "clamp(20px, 5vw, 32px)",
+                fontSize: "clamp(28px, 5vw, 52px)",
                 fontWeight: 800,
                 color: "#f5f5f5",
-                lineHeight: 1.25,
+                lineHeight: 1.15,
                 marginBottom: 0,
                 textWrap: "balance",
+                maxWidth: 620,
+                letterSpacing: "-0.5px",
                 animationDelay: "0.05s",
               }}
             >
@@ -747,25 +751,25 @@ export default function Home() {
 
             {/* Price */}
             <div className="luki-fade-up" style={{ marginBottom: 0, animationDelay: "0.15s" }}>
-              <p style={{ fontSize: 11, fontWeight: 400, color: "rgba(255,255,255,0.5)", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 1 }}>
+              <p style={{ fontSize: "clamp(11px, 1.2vw, 14px)", fontWeight: 400, color: "rgba(255,255,255,0.5)", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 1 }}>
                 Prices starting
               </p>
-              <p style={{ fontSize: 11, fontWeight: 300, color: "rgba(255,255,255,0.7)", letterSpacing: "1px", marginBottom: 2 }}>
+              <p style={{ fontSize: "clamp(11px, 1.2vw, 14px)", fontWeight: 300, color: "rgba(255,255,255,0.7)", letterSpacing: "1px", marginBottom: 2 }}>
                 from just
               </p>
-              <p className="luki-price-glow" style={{ fontSize: "clamp(48px, 12vw, 72px)", fontWeight: 900, color: accentPrimary, lineHeight: 1, letterSpacing: "-1px" }}>
+              <p className="luki-price-glow" style={{ fontSize: "clamp(48px, 12vw, 104px)", fontWeight: 900, color: accentPrimary, lineHeight: 1, letterSpacing: "-2px" }}>
                 ${priceDisplay.toLocaleString()}
               </p>
             </div>
 
             {/* Subheading */}
-            <h2 className="luki-fade-up" style={{ fontSize: "clamp(18px, 4vw, 28px)", fontWeight: 700, color: "#f5f5f5", lineHeight: 1.3, marginBottom: 0, animationDelay: "0.25s" }}>
+            <h2 className="luki-fade-up" style={{ fontSize: "clamp(18px, 4vw, 38px)", fontWeight: 700, color: "#f5f5f5", lineHeight: 1.25, marginBottom: 0, animationDelay: "0.25s" }}>
               {"Ready in "}
               <span style={{ color: accentPrimary }}>3 Days!</span>
             </h2>
 
             {/* Description */}
-            <p className="luki-fade-up" style={{ fontSize: "clamp(13px, 3vw, 15px)", color: "#a0aec0", lineHeight: 1.5, marginBottom: 0, maxWidth: 340, animationDelay: "0.35s" }}>
+            <p className="luki-fade-up" style={{ fontSize: "clamp(13px, 3vw, 18px)", color: "#a0aec0", lineHeight: 1.6, marginBottom: 0, maxWidth: 460, animationDelay: "0.35s" }}>
               From zero to online in just 3 days without breaking the bank! Plus FREE hosting for 1 year!
             </p>
 
@@ -790,7 +794,7 @@ export default function Home() {
             </div>
 
             {/* Social proof */}
-            <p className="luki-fade-up" style={{ fontSize: "clamp(12px, 2.5vw, 16px)", color: "#f5f5f5", lineHeight: 1.4, marginTop: 0, maxWidth: 320, animationDelay: "0.65s" }}>
+            <p className="luki-fade-up" style={{ fontSize: "clamp(12px, 2.5vw, 18px)", color: "#f5f5f5", lineHeight: 1.5, marginTop: 0, maxWidth: 420, animationDelay: "0.65s" }}>
               {"We've helped "}
               <span style={{ color: accentPrimary, fontWeight: 700 }}>100+</span>
               {" businesses get online with our 3 Day website programme"}
@@ -825,6 +829,137 @@ export default function Home() {
             )}
           </div>
         </div>
+
+        {/* ── DESKTOP landing (new two-column hero) ── */}
+        <div className="luki-landing-desktop">
+          <div className="luki-landing-desktop-grid">
+            {/* LEFT — brand, headline, CTA, proof */}
+            <div className="luki-landing-desktop-left">
+              <div className="luki-fade-up" style={{ animationDelay: "0.05s" }}>
+                <LukiLogo large={true} />
+              </div>
+
+              <h1
+                className="luki-fade-up"
+                style={{
+                  fontSize: "clamp(38px, 3.6vw, 60px)",
+                  fontWeight: 800,
+                  color: "#f5f5f5",
+                  lineHeight: 1.08,
+                  letterSpacing: "-1px",
+                  margin: 0,
+                  textWrap: "balance",
+                  animationDelay: "0.12s",
+                }}
+              >
+                Your brand deserves a digital presence that converts.
+              </h1>
+
+              <h2
+                className="luki-fade-up"
+                style={{
+                  fontSize: "clamp(22px, 1.9vw, 30px)",
+                  fontWeight: 700,
+                  color: "#f5f5f5",
+                  lineHeight: 1.2,
+                  margin: 0,
+                  animationDelay: "0.2s",
+                }}
+              >
+                {"Ready in "}
+                <span style={{ color: accentPrimary }}>3 Days!</span>
+              </h2>
+
+              <p
+                className="luki-fade-up"
+                style={{
+                  fontSize: "clamp(15px, 1.1vw, 18px)",
+                  color: "#a0aec0",
+                  lineHeight: 1.6,
+                  margin: 0,
+                  maxWidth: 460,
+                  animationDelay: "0.28s",
+                }}
+              >
+                From zero to online in just 3 days without breaking the bank! Plus FREE hosting for 1 year!
+              </p>
+
+              <div className="luki-fade-up" style={{ animationDelay: "0.36s" }}>
+                <button
+                  type="button"
+                  onClick={() => setShowLanding(false)}
+                  className="luki-cta-button"
+                  style={{ marginBottom: 0 }}
+                >
+                  <span>{"GET YOURS"}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 43">
+                    <polygon points="39.58,4.46 44.11,0 66,21.5 44.11,43 39.58,38.54 56.94,21.5" />
+                    <polygon points="19.79,4.46 24.32,0 46.21,21.5 24.32,43 19.79,38.54 37.15,21.5" />
+                    <polygon points="0,4.46 4.53,0 26.42,21.5 4.53,43 0,38.54 17.36,21.5" />
+                  </svg>
+                </button>
+              </div>
+
+              <div
+                className="luki-fade-up"
+                style={{ display: "flex", alignItems: "center", gap: 16, animationDelay: "0.44s" }}
+              >
+                <StarRating />
+                <p style={{ fontSize: 15, color: "#f5f5f5", lineHeight: 1.5, margin: 0, maxWidth: 340, textAlign: "left" }}>
+                  {"We've helped "}
+                  <span style={{ color: accentPrimary, fontWeight: 700 }}>100+</span>
+                  {" businesses get online with our 3 Day website programme"}
+                </p>
+              </div>
+            </div>
+
+            {/* RIGHT — offer panel */}
+            <div
+              className="luki-fade-up luki-offer-panel"
+              style={{ borderColor: `${accentPrimary}33`, animationDelay: "0.5s" }}
+            >
+              <p style={{ fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.55)", letterSpacing: "3px", textTransform: "uppercase", margin: 0 }}>
+                Prices starting from just
+              </p>
+              <p
+                className="luki-price-glow"
+                style={{ fontSize: "clamp(84px, 7vw, 124px)", fontWeight: 900, color: accentPrimary, lineHeight: 1, letterSpacing: "-3px", margin: "8px 0 4px" }}
+              >
+                ${priceDisplay.toLocaleString()}
+              </p>
+              <p style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", margin: 0 }}>
+                one-time. no hidden fees.
+              </p>
+
+              <div style={{ width: "70%", height: 1, margin: "26px 0", background: `linear-gradient(90deg, transparent, ${accentPrimary}55, transparent)` }} />
+
+              {!showSecret && (
+                <button
+                  type="button"
+                  onClick={triggerSecret}
+                  aria-label="Reveal secret offer"
+                  className="luki-secret-trigger"
+                >
+                  <div className="trigger-orb">
+                    <span className="orb-ring" aria-hidden="true" />
+                    <span className="orb-ring orb-ring-2" aria-hidden="true" />
+                    <span className="orb-sparkle s1" aria-hidden="true">✦</span>
+                    <span className="orb-sparkle s2" aria-hidden="true">✧</span>
+                    <span className="orb-sparkle s3" aria-hidden="true">✦</span>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f5e6b8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ position: "relative", zIndex: 2 }}>
+                      <rect x="3" y="8" width="18" height="4" rx="1" />
+                      <path d="M12 8v13" />
+                      <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7" />
+                      <path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5" />
+                    </svg>
+                  </div>
+                  <span className="trigger-label">psst... tap me</span>
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+        </>
         )}
 
         {/* 3D Gold card reveal — centered in viewport */}
