@@ -565,14 +565,13 @@ select:focus {
 
 @keyframes luki-card-drop {
   0%   { opacity: 0; transform: translateY(-46px) scale(0.55) rotateZ(-9deg); filter: blur(7px); }
-  55%  { opacity: 1; transform: translateY(0) scale(1.07) rotateZ(2.5deg); filter: blur(0); }
-  75%  { transform: translateY(0) scale(0.97) rotateZ(-1.5deg); }
-  90%  { transform: translateY(0) scale(1.02) rotateZ(0.5deg); }
+  50%  { opacity: 1; transform: translateY(2px) scale(1.05) rotateZ(1.5deg); filter: blur(0); }
+  80%  { transform: translateY(0) scale(1.01) rotateZ(-0.5deg); }
   100% { opacity: 1; transform: translateY(0) scale(1) rotateZ(0deg); filter: blur(0); }
 }
 
 .luki-card-float {
-  animation: luki-card-drop 0.85s cubic-bezier(0.34, 1.56, 0.64, 1) both, luki-float 5s ease-in-out 1.2s infinite;
+  animation: luki-card-drop 0.9s cubic-bezier(0.25, 0.8, 0.35, 1) both, luki-float 5s ease-in-out 1.2s infinite;
 }
 
 /* Holographic sheen sweep over the card artwork */
