@@ -980,7 +980,19 @@ export default function Home() {
                       src="/images/card-front.webp"
                       alt="LUXX PR exclusive card — front"
                       draggable={false}
-                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                      onContextMenu={(e) => e.preventDefault()}
+                      style={{ 
+                        position: "absolute", 
+                        inset: 0, 
+                        width: "100%", 
+                        height: "100%", 
+                        objectFit: "cover", 
+                        display: "block",
+                        userSelect: "none",
+                        WebkitUserSelect: "none",
+                        WebkitTouchCallout: "none",
+                        pointerEvents: "auto",
+                      }}
                     />
                     {/* Holographic sheen sweep */}
                     <div className="luki-holo-sheen" style={{ position: "absolute", inset: 0, pointerEvents: "none" }} />
@@ -1001,7 +1013,19 @@ export default function Home() {
                       src="/images/card-back.webp"
                       alt="LUXX PR card — how it works: fill in the short form, we build your website completely free, you review your tailored demo, only pay if you like the outcome"
                       draggable={false}
-                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                      onContextMenu={(e) => e.preventDefault()}
+                      style={{ 
+                        position: "absolute", 
+                        inset: 0, 
+                        width: "100%", 
+                        height: "100%", 
+                        objectFit: "cover", 
+                        display: "block",
+                        userSelect: "none",
+                        WebkitUserSelect: "none",
+                        WebkitTouchCallout: "none",
+                        pointerEvents: "auto",
+                      }}
                     />
                     {/* Holographic sheen sweep */}
                     <div className="luki-holo-sheen" style={{ position: "absolute", inset: 0, pointerEvents: "none" }} />
