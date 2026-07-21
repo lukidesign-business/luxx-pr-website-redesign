@@ -687,7 +687,7 @@ export default function Home() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "flex-start",
+          justifyContent: "center",
           padding: "clamp(20px, 3vw, 40px) clamp(16px, 4vw, 20px)",
           overflow: "hidden",
           background: "transparent",
