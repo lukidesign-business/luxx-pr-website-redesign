@@ -683,22 +683,21 @@ export default function Home() {
     return (
       <main
         style={{
-          minHeight: "100svh",
+          height: "100svh",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-start",
-          padding: "40px 20px",
-          paddingTop: "clamp(20px, 4vw, 50px)",
-          paddingBottom: "clamp(20px, 4vw, 50px)",
+          padding: "clamp(20px, 3vw, 40px) clamp(16px, 4vw, 20px)",
+          overflow: "hidden",
           background: "transparent",
         }}
       >
         {/* When card is revealed, only render card — fully centered in the viewport */}
         {!cardRevealed && (
         <div
-          className="w-full flex flex-col items-center text-center"
-          style={{ maxWidth: 440 }}
+          className="w-full flex flex-col items-center text-center overflow-y-auto"
+          style={{ maxWidth: 440, maxHeight: "100%" }}
         >
           {/* Logo */}
           <div style={{ margin: "-20px 0", paddingBottom: 40 }}>
@@ -810,7 +809,17 @@ export default function Home() {
         {/* 3D Gold card reveal — centered in viewport */}
         {showSecret && (
             <div
-              style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", marginTop: "auto", marginBottom: "auto" }}
+              style={{ 
+                position: "relative", 
+                display: "flex", 
+                flexDirection: "column", 
+                alignItems: "center", 
+                justifyContent: "center",
+                height: "100%",
+                width: "100%",
+                maxWidth: 500,
+                overflow: "hidden",
+              }}
             >
               {/* Piñata burst — blasts outward from behind the card */}
               <div className="luki-burst-origin" aria-hidden="true">
@@ -835,7 +844,7 @@ export default function Home() {
               </div>
 
               {/* Title above card */}
-              <div className="luki-card-title" style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center", gap: 10, marginBottom: 26, textAlign: "center", width: "100%", maxWidth: 460, paddingLeft: 12, paddingRight: 12, boxSizing: "border-box" }}>
+              <div className="luki-card-title" style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center", gap: "clamp(6px, 2vw, 10px)", marginBottom: "clamp(12px, 3vw, 26px)", textAlign: "center", width: "100%", maxWidth: 460, paddingLeft: 12, paddingRight: 12, boxSizing: "border-box", flexShrink: 0 }}>
                 <p style={{ fontSize: 11, letterSpacing: "4px", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", fontWeight: 600, margin: 0 }}>
                   Congratulations
                 </p>
@@ -893,14 +902,36 @@ export default function Home() {
                     ? "rotateY(180deg)"
                     : "rotateX(0deg) rotateY(0deg)"
                 }}
+                onTouchMove={(e) => {
+                  if (cardAnimatingRef.current || !cardInnerRef.current || e.touches.length === 0) return
+                  const rect = e.currentTarget.getBoundingClientRect()
+                  const px = (e.touches[0].clientX - rect.left) / rect.width   // 0→1
+                  const py = (e.touches[0].clientY - rect.top) / rect.height    // 0→1
+                  const rotX = (py - 0.5) * -22  // tilt up/down
+                  const rotY = (px - 0.5) * 22   // tilt left/right
+                  cardInnerRef.current.style.transition = "transform 0.08s ease-out"
+                  cardInnerRef.current.style.transform = cardFlippedRef.current
+                    ? `rotateY(180deg) rotateX(${-rotX}deg) rotateY(${-rotY}deg)`
+                    : `rotateX(${rotX}deg) rotateY(${rotY}deg)`
+                }}
+                onTouchEnd={() => {
+                  if (!cardInnerRef.current) return
+                  cardInnerRef.current.style.transition = "transform 0.4s ease-out"
+                  cardInnerRef.current.style.transform = cardFlippedRef.current
+                    ? "rotateY(180deg)"
+                    : "rotateX(0deg) rotateY(0deg)"
+                }}
                 style={{
-                  width: 280, height: 424,
+                  width: "clamp(200px, 80vw, 280px)",
+                  height: "clamp(300px, 120vw, 424px)",
                   perspective: "1200px",
                   cursor: "pointer",
                   userSelect: "none",
                   flexShrink: 0,
                   position: "relative",
                   zIndex: 2,
+                  maxWidth: "100%",
+                  maxHeight: "60svh",
                 }}
               >
                 <div
