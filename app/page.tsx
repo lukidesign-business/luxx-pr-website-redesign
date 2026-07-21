@@ -677,7 +677,7 @@ export default function Home() {
     )
   }
 
-  // ── Landing Screen ─────��───────────────────���───────────────────────────────
+  // ── Landing Screen ──���──��───────────────────���───────────────────────────────
   if (showLanding) {
     return (
       <main
@@ -957,6 +957,16 @@ export default function Home() {
                   </div>
 
                 </div>
+              </div>
+
+              {/* Flip instruction — visible only when card front is shown */}
+              <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 16, opacity: cardFlipped ? 0 : 1, transition: "opacity 0.3s ease", pointerEvents: "none" }}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" /><path d="M21 3v5h-5" />
+                </svg>
+                <span style={{ fontSize: 10, color: "rgba(212,168,71,0.75)", letterSpacing: "2px", textTransform: "uppercase", fontWeight: 600 }}>
+                  Tap card to see how it works
+                </span>
               </div>
 
               {/* Claim button — gold glow */}
