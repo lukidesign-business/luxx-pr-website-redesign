@@ -1370,7 +1370,7 @@ export default function Home() {
                 </div>
                 <div style={{ background: "#f9fafb", borderRadius: 12, padding: "12px 14px", marginBottom: 20 }}>
                   <p style={{ fontSize: 12, color: "#6b7280", lineHeight: 1.6 }}>
-                    Complex systems like e-commerce stores, delivery/ordering platforms, and membership sites are not part of the free demo — but we can still quote you for those separately.
+                    Complex systems like e-commerce stores, delivery/ordering platforms, and membership sites are not part of the free demo but we can still quote you for those separately.
                   </p>
                 </div>
               </>
