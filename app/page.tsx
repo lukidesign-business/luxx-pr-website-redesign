@@ -321,10 +321,27 @@ function LukiLogo({ large = false, onClick }: { large?: boolean; url?: string; o
 
 function StarRating() {
   return (
-    <div style={{ display: "flex", gap: 4 }}>
-      {[1, 2, 3, 4, 5].map((i) => (
-        <span key={i} style={{ fontSize: 24, color: "#f59e0b" }}>★</span>
+    <div style={{ display: "flex", gap: 5, alignItems: "center" }}>
+      {[0, 1, 2, 3, 4].map((i) => (
+        <svg
+          key={i}
+          className="luxx-premium-star"
+          width="26"
+          height="26"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{ width: 26, height: 26, minWidth: 26, flexShrink: 0, display: "block", animationDelay: `${i * 0.18}s` }}
+          aria-hidden="true"
+        >
+          <polygon
+            points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"
+            fill="#f4cf5e"
+            stroke="#d4a017"
+            strokeWidth="0.5"
+          />
+        </svg>
       ))}
+      <span className="sr-only">Rated 5 out of 5 stars</span>
     </div>
   )
 }
@@ -756,7 +773,7 @@ export default function Home() {
           style={{ maxWidth: "min(720px, 92vw)", height: "100%", width: "100%", overflow: "hidden", padding: "clamp(20px, 3vw, 48px) clamp(16px, 4vw, 32px)", boxSizing: "border-box", justifyContent: "center" }}
         >
           {/* Logo */}
-          <div style={{ margin: "-20px 0", marginBottom: "clamp(16px, 3vh, 32px)" }}>
+          <div style={{ margin: "0", marginBottom: "clamp(16px, 3vh, 32px)" }}>
             <LukiLogo large={true} />
           </div>
 
@@ -868,10 +885,12 @@ export default function Home() {
           <div className="luki-landing-desktop-grid">
             {/* LEFT — brand, headline, CTA, proof */}
             <div className="luki-landing-desktop-left">
-              <div className="luki-fade-up" style={{ animationDelay: "0.05s" }}>
+              {/* Logo */}
+              <div className="luki-fade-up" style={{ animationDelay: "0.05s", marginBottom: "clamp(28px, 4.5vh, 52px)" }}>
                 <LukiLogo large={true} />
               </div>
 
+              {/* Headline */}
               <h1
                 className="luki-fade-up"
                 style={{
@@ -881,6 +900,7 @@ export default function Home() {
                   lineHeight: 1.08,
                   letterSpacing: "-1px",
                   margin: 0,
+                  marginBottom: "clamp(14px, 2vh, 24px)",
                   textWrap: "balance",
                   animationDelay: "0.12s",
                 }}
@@ -888,6 +908,7 @@ export default function Home() {
                 Your brand deserves a digital presence that converts.
               </h1>
 
+              {/* Subheading */}
               <h2
                 className="luki-fade-up"
                 style={{
@@ -896,6 +917,7 @@ export default function Home() {
                   color: "#f5f5f5",
                   lineHeight: 1.2,
                   margin: 0,
+                  marginBottom: "clamp(16px, 2.4vh, 30px)",
                   animationDelay: "0.2s",
                 }}
               >
@@ -903,6 +925,7 @@ export default function Home() {
                 <span style={{ color: accentPrimary }}>3 Days!</span>
               </h2>
 
+              {/* Body copy */}
               <p
                 className="luki-fade-up"
                 style={{
@@ -910,6 +933,7 @@ export default function Home() {
                   color: "#a0aec0",
                   lineHeight: 1.6,
                   margin: 0,
+                  marginBottom: "clamp(28px, 4.2vh, 48px)",
                   maxWidth: 460,
                   animationDelay: "0.28s",
                 }}
@@ -917,7 +941,8 @@ export default function Home() {
                 From zero to online in just 3 days without breaking the bank! Plus FREE hosting for 1 year!
               </p>
 
-              <div className="luki-fade-up" style={{ animationDelay: "0.36s" }}>
+              {/* CTA */}
+              <div className="luki-fade-up" style={{ animationDelay: "0.36s", marginBottom: "clamp(26px, 4vh, 44px)" }}>
                 <button
                   type="button"
                   onClick={() => setShowLanding(false)}
@@ -933,6 +958,7 @@ export default function Home() {
                 </button>
               </div>
 
+              {/* Stars + social proof */}
               <div
                 className="luki-fade-up"
                 style={{ display: "flex", alignItems: "center", gap: 16, animationDelay: "0.44s" }}
@@ -949,7 +975,7 @@ export default function Home() {
             {/* RIGHT — offer panel */}
             <div
               className="luki-fade-up luki-offer-panel"
-              style={{ borderColor: `${accentPrimary}33`, animationDelay: "0.5s" }}
+              style={{ borderColor: `${accentPrimary}33`, animationDelay: "0.5s", ["--offer-glow" as string]: `${accentPrimary}2e` }}
             >
               <p style={{ fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.55)", letterSpacing: "3px", textTransform: "uppercase", margin: 0 }}>
                 Prices starting from just
@@ -1353,7 +1379,7 @@ export default function Home() {
                 </div>
                 <div style={{ background: "#f9fafb", borderRadius: 12, padding: "12px 14px", marginBottom: 20 }}>
                   <p style={{ fontSize: 12, color: "#6b7280", lineHeight: 1.6 }}>
-                    Complex systems like e-commerce stores, delivery/ordering platforms, and membership sites are not part of the free demo — but we can still quote you for those separately.
+                    Complex systems like e-commerce stores, delivery/ordering platforms, and membership sites are not part of the free demo but we can still quote you for those separately.
                   </p>
                 </div>
               </>
