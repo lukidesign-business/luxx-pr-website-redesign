@@ -53,7 +53,7 @@ export async function POST(request: Request) {
     }
 
     const buildEmailTemplate = (isDemo: boolean) => {
-      const accent = isDemo ? "#d4a847" : "#5a7fa3"
+      const accent = isDemo ? "#d4a847" : "#99b9d5"
       const accentSoft = isDemo ? "#faf4e6" : "#eef3f8"
       const titleText = isDemo ? "Free Demo Enquiry" : "New Website Enquiry"
       const titleDesc = isDemo
@@ -91,13 +91,13 @@ export async function POST(request: Request) {
   <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;">
 
     <!-- HERO BANNER: LUXX image, contained (no stretch), with dark overlay -->
-    <tr><td style="background-color:#0a1420;background-image:linear-gradient(rgba(6,14,22,0.72),rgba(6,14,22,0.82)),url('${bgUrl}');background-size:cover;background-position:center;border-radius:20px 20px 0 0;padding:44px 32px;text-align:center;">
+    <tr><td style="background-color:#0a1420;background-image:url('${bgUrl}'),linear-gradient(rgba(6,14,22,0.72),rgba(6,14,22,0.82));background-size:cover;background-position:center;background-repeat:no-repeat;border-radius:20px 20px 0 0;padding:44px 32px;text-align:center;">
       <img src="${logoUrl}" alt="LUXX PR" width="150" style="display:block;margin:0 auto 22px;max-width:150px;height:auto;" />
       <span style="display:inline-block;background:${accent};color:#ffffff;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:10px 22px;border-radius:50px;">${titleText}</span>
     </td></tr>
 
     <!-- CONTENT AREA -->
-    <tr><td style="background:#ffffff;border-radius:0 0 20px 20px;padding:32px 24px;">
+    <tr><td style="background:#ffffff;padding:32px 24px;">
 
       <p style="color:#6b7280;font-size:15px;line-height:1.6;margin:0 0 24px;text-align:center;">${titleDesc}</p>
 
@@ -133,7 +133,7 @@ export async function POST(request: Request) {
     </td></tr>
 
     <!-- FOOTER -->
-    <tr><td style="padding:24px 16px 8px;text-align:center;">
+    <tr><td style="background:#ffffff;border-radius:0 0 20px 20px;padding:24px 16px 8px;text-align:center;">
       <p style="color:#9ca3af;font-size:12px;letter-spacing:0.3px;margin:0;">
         Enquiry submitted via <span style="color:${accent};font-weight:700;">LUXX PR</span>
       </p>
