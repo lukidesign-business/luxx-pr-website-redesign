@@ -136,7 +136,7 @@ export async function POST(request: Request) {
     const subjectPrefix = isDemoMode ? "Free Demo Enquiry" : "Website Enquiry"
     const { error: resendError } = await resend.emails.send({
       from: "LUXX PR <onboarding@resend.dev>",
-      to: ["lukidesign.business@gmail.com"],
+      to: ["info@luxxpr.com"],
       subject: `${subjectPrefix}: ${sanitize(name)} — ${sanitize(businessName)}`,
       html: emailHtml,
       replyTo: email,
@@ -150,7 +150,7 @@ export async function POST(request: Request) {
       }, { status: 500 })
     }
 
-    console.log("[submit] Email sent successfully to lukidesign.business@gmail.com")
+    console.log("[submit] Email sent successfully to info@luxxpr.com")
     return NextResponse.json({ success: true, message: "Enquiry submitted successfully!" })
   } catch (err) {
     console.error("[submit] Unexpected error:", err)
