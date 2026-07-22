@@ -1575,7 +1575,7 @@ What type of website do you need?
                     {isDemoMode ? "Free demos cover up to 5 pages" : "More pages means more design and content work"}
                   </p>
                   <div className="flex flex-col" style={{ gap: 8, marginTop: 10 }}>
-                    {PAGE_COUNTS.map((opt) => (
+                    {(isDemoMode ? DEMO_PAGE_COUNTS : PAGE_COUNTS).map((opt) => (
                       <OptionCard
                         key={opt}
                         label={opt}
@@ -1618,7 +1618,7 @@ What type of website do you need?
                   </h2>
                   <input
                     type="text"
-                    placeholder="e.g., myawesomesite.ie"
+                    placeholder="e.g., yourwebsite.com"
                     value={formData.domainName}
                     onChange={(e) => setFormData((p) => ({ ...p, domainName: e.target.value }))}
                     style={{
