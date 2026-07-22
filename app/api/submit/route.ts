@@ -115,9 +115,9 @@ export async function POST(request: Request) {
     const resend = new Resend(apiKey)
 
     const { error: resendError } = await resend.emails.send({
-      from: "LuKi Design <noreply@resend.dev>",
+      from: "LUXX PR <noreply@luxxpr.com>",
       to: ["info@luxxpr.com"],
-      subject: `New Enquiry from ${sanitize(name)} — ${sanitize(businessName)}`,
+      subject: `New Website Enquiry: ${sanitize(name)} (${sanitize(businessName)})`,
       html: emailHtml,
       replyTo: email,
     })
