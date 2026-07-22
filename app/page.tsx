@@ -1361,7 +1361,7 @@ export default function Home() {
                   </button>
                 </div>
                 <p style={{ fontSize: 13.5, color: "#374151", lineHeight: 1.65, marginBottom: 16 }}>
-                  Our free demo covers straightforward, informational websites — the kind most small businesses actually need to get online quickly.
+                  Our free demo covers straightforward, informational websites, the kind most small businesses actually need to get online quickly.
                 </p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 20 }}>
                   {[
