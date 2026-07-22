@@ -135,7 +135,7 @@ export async function POST(request: Request) {
 
     const subjectPrefix = isDemoMode ? "Free Demo Enquiry" : "Website Enquiry"
     const { error: resendError } = await resend.emails.send({
-      from: "LUXX PR <onboarding@resend.dev>",
+      from: "LUXX PR <noreply@luxxpr.com>",
       to: ["info@luxxpr.com"],
       subject: `${subjectPrefix}: ${sanitize(name)} — ${sanitize(businessName)}`,
       html: emailHtml,
