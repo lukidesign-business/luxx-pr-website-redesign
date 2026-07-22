@@ -52,79 +52,95 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid email address." }, { status: 400 })
     }
 
-    const row = (label: string, value: string) => `
-      <tr>
-        <td style="padding:13px 0;font-weight:500;color:#8a8a9a;font-size:13px;width:40%;border-bottom:1px solid #f0f0f3;vertical-align:top;">${label}</td>
-        <td style="padding:13px 0;color:#1a1a2e;font-size:14px;font-weight:600;border-bottom:1px solid #f0f0f3;text-align:right;">${sanitize(value) || "—"}</td>
-      </tr>`
-
     const buildEmailTemplate = (isDemo: boolean) => {
-      const accentColor = isDemo ? "#d4a847" : "#5a7fa3"
-      const accentSoft = isDemo ? "rgba(212, 168, 71, 0.12)" : "rgba(90, 127, 163, 0.12)"
+      const accentColor = isDemo ? "#d4a847" : "#99b9d5"
+      const accentColorDim = isDemo ? "#b8902f" : "#7a9dbd"
       const titleText = isDemo ? "Free Demo Enquiry" : "New Website Enquiry"
       const titleDesc = isDemo
         ? "A client has requested a free demo website."
         : "A potential client has requested a custom website quote."
       const logoUrl = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/luxx-logo-3-lLgBQHLHnO9dYbm4cCsrgIHyVUEYn5.png"
+      const bgUrl = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/lux-mockup1%20%281%29-zES1ceEPRx8Uh3C1OBDdMzr5Ew4Gn9.png"
+
+      // Data row — alternating subtle background, accent-tinted label
+      const row = (label: string, value: string, last = false) => `
+      <tr>
+        <td style="padding:14px 20px;font-weight:600;color:#5f7285;font-size:12px;letter-spacing:0.3px;text-transform:uppercase;width:42%;vertical-align:top;${last ? "" : "border-bottom:1px solid #eef1f5;"}">${label}</td>
+        <td style="padding:14px 20px;color:#0a1a28;font-size:14px;font-weight:600;text-align:right;line-height:1.5;${last ? "" : "border-bottom:1px solid #eef1f5;"}">${sanitize(value) || "—"}</td>
+      </tr>`
+
+      const sectionHeader = (title: string) => `
+      <tr>
+        <td colspan="2" style="padding:22px 20px 10px;">
+          <span style="display:inline-block;color:${accentColorDim};font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;">${title}</span>
+          <div style="height:2px;width:32px;background:${accentColor};border-radius:2px;margin-top:8px;"></div>
+        </td>
+      </tr>`
 
       return `
 <!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:linear-gradient(rgba(30,30,50,0.92),rgba(20,20,40,0.92)),url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/lux-mockup1%20%281%29-zES1ceEPRx8Uh3C1OBDdMzr5Ew4Gn9.png');background-size:cover;background-position:center;background-attachment:fixed;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
-<div style="max-width:600px;margin:0 auto;padding:32px 16px;">
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"></head>
+<body style="margin:0;padding:0;background-color:#050d14;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+<!-- Outer background: LUXX image with deep navy fallback, no stretch (cover keeps ratio) -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#050d14;background-image:url('${bgUrl}');background-size:cover;background-position:center top;background-repeat:no-repeat;">
+<tr><td align="center" style="padding:40px 16px;">
 
-  <!-- Header -->
-  <div style="background:linear-gradient(150deg,#1c1c30 0%,#101019 100%);border-radius:20px 20px 0 0;padding:36px 32px 30px;text-align:center;border-bottom:3px solid ${accentColor};">
-    <img src="${logoUrl}" alt="LUXX PR" width="150" style="display:block;margin:0 auto 18px;max-width:150px;height:auto;" />
-    <div style="display:inline-block;background:${accentSoft};border:1px solid ${accentColor}55;color:${accentColor};font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 16px;border-radius:9999px;">${titleText}</div>
-  </div>
+  <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;">
 
-  <!-- Body -->
-  <div style="background:#ffffff;padding:32px;border-radius:0 0 20px 20px;box-shadow:0 10px 40px rgba(0,0,0,0.08);">
+    <!-- HEADER: glassy dark panel over the LUXX background -->
+    <tr><td style="background:linear-gradient(155deg, rgba(10,26,40,0.82) 0%, rgba(5,13,20,0.9) 100%);border:1px solid rgba(153,185,213,0.14);border-bottom:3px solid ${accentColor};border-radius:22px 22px 0 0;padding:40px 32px 32px;text-align:center;">
+      <img src="${logoUrl}" alt="LUXX PR" width="160" style="display:block;margin:0 auto 20px;max-width:160px;height:auto;" />
+      <span style="display:inline-block;background:rgba(153,185,213,0.10);border:1px solid ${accentColor};color:${accentColor};font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;padding:8px 18px;border-radius:9999px;">${titleText}</span>
+      <p style="color:rgba(255,255,255,0.65);font-size:14px;line-height:1.6;margin:20px 0 0;">${titleDesc}</p>
+    </td></tr>
 
-    <p style="color:#6a6a7a;font-size:14px;line-height:1.6;margin:0 0 28px;text-align:center;">${titleDesc}</p>
+    <!-- ESTIMATE HIGHLIGHT -->
+    <tr><td style="background:#0a1a28;padding:28px 32px;border-left:1px solid rgba(153,185,213,0.14);border-right:1px solid rgba(153,185,213,0.14);">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:linear-gradient(150deg,#0e2233 0%,#081521 100%);border:1px solid ${accentColor}55;border-radius:16px;">
+        <tr><td style="padding:26px;text-align:center;">
+          <div style="color:rgba(255,255,255,0.5);font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:10px;">Estimated Price</div>
+          <div style="color:${accentColor};font-size:34px;font-weight:800;letter-spacing:-0.5px;line-height:1;">${sanitize(estimatedPrice || "Not calculated")}</div>
+        </td></tr>
+      </table>
+    </td></tr>
 
-    <!-- Estimate highlight -->
-    <div style="background:linear-gradient(150deg,#1c1c30 0%,#12121f 100%);border-radius:16px;padding:24px;text-align:center;margin-bottom:32px;border:1px solid ${accentColor}40;">
-      <div style="color:rgba(255,255,255,0.5);font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Estimated Price</div>
-      <div style="color:${accentColor};font-size:30px;font-weight:800;letter-spacing:-0.5px;">${sanitize(estimatedPrice || "Not calculated")}</div>
-    </div>
+    <!-- DETAILS: white card -->
+    <tr><td style="background:#ffffff;border-radius:0 0 22px 22px;overflow:hidden;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        ${sectionHeader("Contact Details")}
+        ${row("Name", name)}
+        ${row("Business Name", businessName)}
+        ${row("Email", email)}
+        ${row("Phone", phone || "Not provided")}
+        ${row("Referral Code", referralCode || "None")}
+        ${row("About Business", businessDescription, true)}
 
-    <!-- Contact -->
-    <h3 style="color:#1a1a2e;font-size:13px;text-transform:uppercase;letter-spacing:1.5px;margin:0 0 4px;font-weight:700;">Contact Details</h3>
-    <table style="width:100%;border-collapse:collapse;margin-bottom:28px;">
-      ${row("Name", name)}
-      ${row("Business Name", businessName)}
-      ${row("Email", email)}
-      ${row("Phone", phone || "Not provided")}
-      ${row("Referral Code", referralCode || "None")}
-      <tr>
-        <td style="padding:13px 0;font-weight:500;color:#8a8a9a;font-size:13px;vertical-align:top;">About Business</td>
-        <td style="padding:13px 0;color:#1a1a2e;font-size:14px;font-weight:500;text-align:right;line-height:1.5;">${sanitize(businessDescription)}</td>
-      </tr>
-    </table>
+        ${sectionHeader("Project Details")}
+        ${row("Website Type", websiteType)}
+        ${row("Product Count", productCount || "N/A")}
+        ${row("Pages Needed", pageCount || "N/A")}
+        ${row("Domain Name", domainName)}
+        ${row("Domain", domainValue || "Not provided")}
+        ${row("Branding", branding)}
+        ${row("Website Purpose", websitePurpose)}
+        ${row("Content Ready", contentReady)}
+        ${row("Advanced Features", advancedFeatures, true)}
+      </table>
+      <div style="height:28px;"></div>
+    </td></tr>
 
-    <!-- Questionnaire -->
-    <h3 style="color:#1a1a2e;font-size:13px;text-transform:uppercase;letter-spacing:1.5px;margin:0 0 4px;font-weight:700;">Project Details</h3>
-    <table style="width:100%;border-collapse:collapse;">
-      ${row("Website Type", websiteType)}
-      ${row("Product Count", productCount || "N/A")}
-      ${row("Pages Needed", pageCount || "N/A")}
-      ${row("Domain Name", domainName)}
-      ${row("Domain", domainValue || "Not provided")}
-      ${row("Branding", branding)}
-      ${row("Website Purpose", websitePurpose)}
-      ${row("Content Ready", contentReady)}
-      ${row("Advanced Features", advancedFeatures)}
-    </table>
+    <!-- FOOTER -->
+    <tr><td style="padding:24px 16px 8px;text-align:center;">
+      <p style="color:rgba(255,255,255,0.55);font-size:11px;letter-spacing:0.4px;margin:0;">
+        Enquiry submitted via <span style="color:${accentColor};font-weight:700;">LUXX PR</span>
+      </p>
+    </td></tr>
 
-  </div>
+  </table>
 
-  <p style="text-align:center;color:#a8a8b3;font-size:11px;margin-top:24px;letter-spacing:0.3px;">
-    Enquiry submitted via <span style="color:${accentColor};font-weight:600;">LUXX PR</span>
-  </p>
-</div>
+</td></tr>
+</table>
 </body>
 </html>`
     }
