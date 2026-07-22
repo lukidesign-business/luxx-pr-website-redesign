@@ -71,7 +71,7 @@ export async function POST(request: Request) {
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#ececef;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+<body style="margin:0;padding:0;background:linear-gradient(rgba(30,30,50,0.92),rgba(20,20,40,0.92)),url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/lux-mockup1%20%281%29-zES1ceEPRx8Uh3C1OBDdMzr5Ew4Gn9.png');background-size:cover;background-position:center;background-attachment:fixed;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
 <div style="max-width:600px;margin:0 auto;padding:32px 16px;">
 
   <!-- Header -->
