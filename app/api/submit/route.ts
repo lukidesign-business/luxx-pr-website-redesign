@@ -40,6 +40,7 @@ export async function POST(request: Request) {
       phone,
       businessDescription,
       referralCode,
+      isDemoMode,
     } = body
 
     // Validate required fields
@@ -57,7 +58,14 @@ export async function POST(request: Request) {
         <td style="padding:12px 16px;color:#1a1a2e;font-size:14px;border-bottom:1px solid #eee;">${sanitize(value) || "—"}</td>
       </tr>`
 
-    const emailHtml = `
+    const buildEmailTemplate = (isDemo: boolean) => {
+      const accentColor = isDemo ? "#d4a847" : "#1d3557"
+      const accentBg = isDemo ? "rgba(212, 168, 71, 0.1)" : "rgba(29, 53, 87, 0.08)"
+      const titleText = isDemo ? "Free Demo Enquiry" : "Website Enquiry"
+      const titleDesc = isDemo ? "A client has requested a free demo website." : "A potential client has requested a custom website quote."
+      const priceRowBg = isDemo ? "rgba(212, 168, 71, 0.15)" : "rgba(29, 53, 87, 0.12)"
+
+      return `
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
@@ -65,15 +73,18 @@ export async function POST(request: Request) {
 <div style="max-width:600px;margin:0 auto;padding:32px 16px;">
 
   <div style="background:linear-gradient(135deg,#1a1a2e 0%,#111125 100%);border-radius:12px 12px 0 0;padding:28px 24px;text-align:center;">
-    <div style="height:56px;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#f5f5f5;font-size:20px;font-weight:700;">LuKi Design</div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:12px;">
+      <div style="width:48px;height:48px;background:${accentColor};border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;">L</div>
+      <div style="color:#f5f5f5;font-size:18px;font-weight:700;">LUXX PR</div>
+    </div>
   </div>
 
   <div style="background:#fff;padding:28px 24px;border-radius:0 0 12px 12px;box-shadow:0 4px 16px rgba(0,0,0,0.06);">
 
-    <h2 style="color:#1a1a2e;font-size:18px;margin:0 0 4px;">New Website Enquiry</h2>
-    <p style="color:#888;font-size:13px;margin:0 0 24px;">A potential client has filled out your enquiry form.</p>
+    <h2 style="color:${accentColor};font-size:18px;margin:0 0 4px;font-weight:700;">${titleText}</h2>
+    <p style="color:#888;font-size:13px;margin:0 0 24px;">${titleDesc}</p>
 
-    <h3 style="color:#e8566d;font-size:14px;text-transform:uppercase;letter-spacing:1px;margin:0 0 8px;padding-bottom:8px;border-bottom:2px solid #e8566d20;">Contact Details</h3>
+    <h3 style="color:${accentColor};font-size:14px;text-transform:uppercase;letter-spacing:1px;margin:0 0 8px;padding-bottom:8px;border-bottom:2px solid ${accentColor}33;">Contact Details</h3>
     <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
       ${row("Name", name, "#fff")}
       ${row("Business Name", businessName, "#fafafa")}
@@ -86,7 +97,7 @@ export async function POST(request: Request) {
       </tr>
     </table>
 
-    <h3 style="color:#e8566d;font-size:14px;text-transform:uppercase;letter-spacing:1px;margin:0 0 8px;padding-bottom:8px;border-bottom:2px solid #e8566d20;">Questionnaire Answers</h3>
+    <h3 style="color:${accentColor};font-size:14px;text-transform:uppercase;letter-spacing:1px;margin:0 0 8px;padding-bottom:8px;border-bottom:2px solid ${accentColor}33;">Questionnaire Answers</h3>
     <table style="width:100%;border-collapse:collapse;">
       ${row("Website Type", websiteType, "#fff")}
       ${row("Product Count", productCount || "N/A", "#fafafa")}
@@ -97,27 +108,31 @@ export async function POST(request: Request) {
       ${row("Website Purpose", websitePurpose, "#fff")}
       ${row("Content Ready", contentReady, "#fafafa")}
       ${row("Advanced Features", advancedFeatures, "#fff")}
-      <tr style="background:#dce8f0;">
-        <td style="padding:12px 16px;font-weight:700;color:#1d3557;font-size:13px;border-bottom:1px solid #eee;">Estimated Price</td>
-        <td style="padding:12px 16px;color:#1d3557;font-size:15px;font-weight:700;border-bottom:1px solid #eee;">${sanitize(estimatedPrice || "Not calculated")}</td>
+      <tr style="background:${priceRowBg};">
+        <td style="padding:12px 16px;font-weight:700;color:${accentColor};font-size:13px;border-bottom:1px solid #eee;">Estimated Price</td>
+        <td style="padding:12px 16px;color:${accentColor};font-size:15px;font-weight:700;border-bottom:1px solid #eee;">${sanitize(estimatedPrice || "Not calculated")}</td>
       </tr>
     </table>
 
   </div>
 
   <p style="text-align:center;color:#aaa;font-size:11px;margin-top:20px;">
-    Sent from LUXX PR enquiry form
+    Website enquiry submitted via LUXX PR
   </p>
 </div>
 </body>
 </html>`
+    }
+
+    const emailHtml = buildEmailTemplate(isDemoMode === true)
 
     const resend = new Resend(apiKey)
 
+    const subjectPrefix = isDemoMode ? "Free Demo Enquiry" : "Website Enquiry"
     const { error: resendError } = await resend.emails.send({
       from: "LUXX PR <onboarding@resend.dev>",
       to: ["lukidesign.business@gmail.com"],
-      subject: `New Website Enquiry: ${sanitize(name)} (${sanitize(businessName)})`,
+      subject: `${subjectPrefix}: ${sanitize(name)} — ${sanitize(businessName)}`,
       html: emailHtml,
       replyTo: email,
     })

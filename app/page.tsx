@@ -611,6 +611,7 @@ export default function Home() {
       const payload = {
         ...formData,
         estimatedPrice: estimate ? `${formatPrice(estimate.low)} – ${formatPrice(estimate.high)}` : "Not calculated",
+        isDemoMode,
       }
       const res = await fetch("/api/submit", {
         method: "POST",
