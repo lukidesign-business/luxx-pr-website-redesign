@@ -152,12 +152,18 @@ export async function POST(request: Request) {
     const resend = new Resend(apiKey)
 
     const subjectPrefix = isDemoMode ? "Free Demo Enquiry" : "Website Enquiry"
+    const logoUrl = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/luxx-logo-3-lLgBQHLHnO9dYbm4cCsrgIHyVUEYn5.png"
+    
     const { error: resendError } = await resend.emails.send({
       from: "LUXX PR <noreply@luxxpr.com>",
       to: ["info@luxxpr.com"],
       subject: `${subjectPrefix}: ${sanitize(name)} — ${sanitize(businessName)}`,
       html: emailHtml,
       replyTo: email,
+      headers: {
+        "X-Logo": logoUrl,
+        "X-Entity-Ref-ID": "luxx-pr-enquiry",
+      },
     })
 
     if (resendError) {
