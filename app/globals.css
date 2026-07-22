@@ -756,7 +756,6 @@ select:focus {
     gap: clamp(32px, 4vw, 80px);
     width: 100%;
     max-width: 1200px;
-    margin-top: -5vh;
   }
 
   .luki-landing-desktop-left {
@@ -764,9 +763,34 @@ select:focus {
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
-    gap: clamp(12px, 1.6vh, 24px);
+    gap: 0;
     min-width: 0;
     padding-left: clamp(16px, 2.5vw, 48px);
+  }
+
+  /* Logo — generous space below before headline */
+  .luki-landing-desktop-left > :nth-child(1) {
+    margin-bottom: clamp(28px, 4.5vh, 52px);
+  }
+
+  /* Headline — small gap down into subheading */
+  .luki-landing-desktop-left > :nth-child(2) {
+    margin-bottom: clamp(14px, 2vh, 24px);
+  }
+
+  /* "Ready in 3 Days!" — breathing room before body copy */
+  .luki-landing-desktop-left > :nth-child(3) {
+    margin-bottom: clamp(16px, 2.2vh, 28px);
+  }
+
+  /* Body copy — larger gap before CTA */
+  .luki-landing-desktop-left > :nth-child(4) {
+    margin-bottom: clamp(28px, 4vh, 48px);
+  }
+
+  /* CTA button — space before stars */
+  .luki-landing-desktop-left > :nth-child(5) {
+    margin-bottom: clamp(24px, 3.5vh, 42px);
   }
 
   .luki-offer-panel {

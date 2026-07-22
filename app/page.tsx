@@ -885,10 +885,12 @@ export default function Home() {
           <div className="luki-landing-desktop-grid">
             {/* LEFT — brand, headline, CTA, proof */}
             <div className="luki-landing-desktop-left">
-              <div className="luki-fade-up" style={{ animationDelay: "0.05s" }}>
+              {/* Logo */}
+              <div className="luki-fade-up" style={{ animationDelay: "0.05s", marginBottom: "clamp(28px, 4.5vh, 52px)" }}>
                 <LukiLogo large={true} />
               </div>
 
+              {/* Headline */}
               <h1
                 className="luki-fade-up"
                 style={{
@@ -898,6 +900,7 @@ export default function Home() {
                   lineHeight: 1.08,
                   letterSpacing: "-1px",
                   margin: 0,
+                  marginBottom: "clamp(14px, 2vh, 24px)",
                   textWrap: "balance",
                   animationDelay: "0.12s",
                 }}
@@ -905,6 +908,7 @@ export default function Home() {
                 Your brand deserves a digital presence that converts.
               </h1>
 
+              {/* Subheading */}
               <h2
                 className="luki-fade-up"
                 style={{
@@ -913,6 +917,7 @@ export default function Home() {
                   color: "#f5f5f5",
                   lineHeight: 1.2,
                   margin: 0,
+                  marginBottom: "clamp(16px, 2.4vh, 30px)",
                   animationDelay: "0.2s",
                 }}
               >
@@ -920,6 +925,7 @@ export default function Home() {
                 <span style={{ color: accentPrimary }}>3 Days!</span>
               </h2>
 
+              {/* Body copy */}
               <p
                 className="luki-fade-up"
                 style={{
@@ -927,6 +933,7 @@ export default function Home() {
                   color: "#a0aec0",
                   lineHeight: 1.6,
                   margin: 0,
+                  marginBottom: "clamp(28px, 4.2vh, 48px)",
                   maxWidth: 460,
                   animationDelay: "0.28s",
                 }}
@@ -934,7 +941,8 @@ export default function Home() {
                 From zero to online in just 3 days without breaking the bank! Plus FREE hosting for 1 year!
               </p>
 
-              <div className="luki-fade-up" style={{ animationDelay: "0.36s" }}>
+              {/* CTA */}
+              <div className="luki-fade-up" style={{ animationDelay: "0.36s", marginBottom: "clamp(26px, 4vh, 44px)" }}>
                 <button
                   type="button"
                   onClick={() => setShowLanding(false)}
@@ -950,6 +958,7 @@ export default function Home() {
                 </button>
               </div>
 
+              {/* Stars + social proof */}
               <div
                 className="luki-fade-up"
                 style={{ display: "flex", alignItems: "center", gap: 16, animationDelay: "0.44s" }}
