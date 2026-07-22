@@ -741,14 +741,14 @@ select:focus {
     height: 100%;
     padding: clamp(32px, 4vw, 72px);
     box-sizing: border-box;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .luki-landing-desktop-grid {
     display: grid;
     grid-template-columns: 1.15fr 0.85fr;
     align-items: center;
-    gap: clamp(48px, 5vw, 96px);
+    gap: clamp(32px, 4vw, 80px);
     width: 100%;
     max-width: 1180px;
   }
@@ -758,7 +758,7 @@ select:focus {
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
-    gap: clamp(16px, 1.8vw, 26px);
+    gap: clamp(10px, 1.2vh, 20px);
     min-width: 0;
   }
 

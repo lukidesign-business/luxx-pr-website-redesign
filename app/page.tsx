@@ -321,34 +321,26 @@ function LukiLogo({ large = false, onClick }: { large?: boolean; url?: string; o
 
 function StarRating() {
   return (
-    <div style={{ display: "flex", gap: 6 }}>
-      {[0, 1, 2, 3, 4].map((i) => {
-        const gradId = `luxx-star-gold-${i}`
-        return (
-          <svg
-            key={i}
-            className="luxx-premium-star"
-            width={26}
-            height={26}
-            viewBox="0 0 24 24"
-            style={{ width: 26, height: 26, flexShrink: 0, display: "block", animationDelay: `${i * 0.18}s` }}
-            aria-hidden="true"
-          >
-            <defs>
-              <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#fdf3c4" />
-                <stop offset="35%" stopColor="#f4cf5e" />
-                <stop offset="60%" stopColor="#d4a017" />
-                <stop offset="100%" stopColor="#b8860b" />
-              </linearGradient>
-            </defs>
-            <path
-              fill={`url(#${gradId})`}
-              d="M12 2l2.9 6.26L21.6 9.2l-4.8 4.53L18 20.6 12 17.1 6 20.6l1.2-6.87L2.4 9.2l6.7-.94L12 2z"
-            />
-          </svg>
-        )
-      })}
+    <div style={{ display: "flex", gap: 5, alignItems: "center" }}>
+      {[0, 1, 2, 3, 4].map((i) => (
+        <svg
+          key={i}
+          className="luxx-premium-star"
+          width="26"
+          height="26"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{ width: 26, height: 26, minWidth: 26, flexShrink: 0, display: "block", animationDelay: `${i * 0.18}s` }}
+          aria-hidden="true"
+        >
+          <polygon
+            points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"
+            fill="#f4cf5e"
+            stroke="#d4a017"
+            strokeWidth="0.5"
+          />
+        </svg>
+      ))}
       <span className="sr-only">Rated 5 out of 5 stars</span>
     </div>
   )
