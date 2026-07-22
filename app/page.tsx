@@ -977,6 +977,31 @@ export default function Home() {
                 overflow: "hidden",
               }}
             >
+              {/* Radial golden light rays */}
+              <div className="luki-rays" aria-hidden="true">
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <span key={i} className="luki-ray" style={{ "--ray-angle": `${i * 30}deg` } as React.CSSProperties} />
+                ))}
+              </div>
+
+              {/* Floating golden particles */}
+              <div className="luki-particles" aria-hidden="true">
+                {Array.from({ length: 22 }).map((_, i) => (
+                  <span
+                    key={i}
+                    className="luki-particle"
+                    style={{
+                      "--px": `${Math.random() * 100}%`,
+                      "--py": `${40 + Math.random() * 55}%`,
+                      "--ps": `${2 + Math.random() * 4}px`,
+                      "--pd": `${Math.random() * 3}s`,
+                      "--pDur": `${2.5 + Math.random() * 3}s`,
+                      "--pRise": `${-(30 + Math.random() * 60)}px`,
+                    } as React.CSSProperties}
+                  />
+                ))}
+              </div>
+
               {/* Piñata burst — blasts outward from behind the card */}
               <div className="luki-burst-origin" aria-hidden="true">
                 {confetti.map((p) => (
@@ -1021,10 +1046,13 @@ export default function Home() {
                 <div style={{ width: 60, height: 1, marginTop: 2, background: "linear-gradient(90deg, transparent, rgba(212,168,71,0.55), transparent)" }} />
               </div>
 
+              {/* Podium glow beneath card */}
+              <div className="luki-podium-glow" aria-hidden="true" />
+
               {/* Flip Card */}
               <div
                 ref={cardContainerRef}
-                className="luki-card-entry luki-card-float"
+                className="luki-card-entry luki-card-float luki-card-edge-glow"
                 onClick={() => {
                   if (cardAnimatingRef.current) return
                   const next = !cardFlippedRef.current
