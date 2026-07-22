@@ -974,7 +974,7 @@ export default function Home() {
             {/* RIGHT — offer panel */}
             <div
               className="luki-fade-up luki-offer-panel"
-              style={{ borderColor: `${accentPrimary}33`, animationDelay: "0.5s" }}
+              style={{ borderColor: `${accentPrimary}33`, animationDelay: "0.5s", ["--offer-glow" as string]: `${accentPrimary}2e` }}
             >
               <p style={{ fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.55)", letterSpacing: "3px", textTransform: "uppercase", margin: 0 }}>
                 Prices starting from just
