@@ -134,7 +134,12 @@ export async function POST(request: Request) {
     const resend = new Resend(apiKey)
 
     const subjectPrefix = isDemoMode ? "Free Demo Enquiry" : "Website Enquiry"
-    const { error: resendError } = await resend.emails.send({
+    console.log("[submit] Attempting to send email with:")
+    console.log("[submit] From: LUXX PR <onboarding@resend.dev>")
+    console.log("[submit] To: info@luxxpr.com")
+    console.log("[submit] Subject: " + `${subjectPrefix}: ${sanitize(name)} — ${sanitize(businessName)}`)
+    
+    const emailResult = await resend.emails.send({
       from: "LUXX PR <onboarding@resend.dev>",
       to: ["info@luxxpr.com"],
       subject: `${subjectPrefix}: ${sanitize(name)} — ${sanitize(businessName)}`,
@@ -142,15 +147,18 @@ export async function POST(request: Request) {
       replyTo: email,
     })
 
-    if (resendError) {
-      console.error("[submit] Resend error:", JSON.stringify(resendError))
+    console.log("[submit] Resend response:", JSON.stringify(emailResult))
+
+    if (emailResult.error) {
+      console.error("[submit] Resend error details:", JSON.stringify(emailResult.error))
       return NextResponse.json({ 
         error: "Failed to send email. Please try again or contact support.",
-        details: resendError?.message || "Unknown error"
+        details: emailResult.error?.message || "Unknown error"
       }, { status: 500 })
     }
 
-    console.log("[submit] Email sent successfully to info@luxxpr.com")
+    console.log("[submit] Email sent successfully! Message ID:", emailResult.data?.id)
+    console.log("[submit] Email sent to info@luxxpr.com")
     return NextResponse.json({ success: true, message: "Enquiry submitted successfully!" })
   } catch (err) {
     console.error("[submit] Unexpected error:", err)
