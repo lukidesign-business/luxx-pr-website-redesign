@@ -756,7 +756,7 @@ export default function Home() {
           style={{ maxWidth: "min(720px, 92vw)", height: "100%", width: "100%", overflow: "hidden", padding: "clamp(20px, 3vw, 48px) clamp(16px, 4vw, 32px)", boxSizing: "border-box", justifyContent: "center" }}
         >
           {/* Logo */}
-          <div style={{ margin: "-20px 0", marginBottom: "clamp(16px, 3vh, 32px)" }}>
+          <div style={{ margin: "0", marginBottom: "clamp(16px, 3vh, 32px)" }}>
             <LukiLogo large={true} />
           </div>
 
