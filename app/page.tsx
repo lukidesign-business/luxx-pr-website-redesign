@@ -530,6 +530,35 @@ export default function Home() {
     setStep((s) => Math.max(1, s - 1))
   }
 
+  function resetForm() {
+    setStep(1)
+    setFormData({
+      websiteType: "",
+      productCount: "",
+      pageCount: "",
+      domainName: "",
+      domainValue: "",
+      branding: "",
+      websitePurpose: "",
+      contentReady: "",
+      advancedFeatures: "",
+      name: "",
+      businessName: "",
+      email: "",
+      phone: "",
+      businessDescription: "",
+      referralCode: "",
+    })
+    setContactErrors({})
+    setError("")
+  }
+
+  // Switch from the free-demo flow into the full custom-quote flow, restarting at step 1
+  function switchToFullForm() {
+    setIsDemoMode(false)
+    resetForm()
+  }
+
   function selectOption(field: keyof FormData, value: string) {
     const updated = { ...formData, [field]: value }
     setFormData(updated)
@@ -1439,6 +1468,47 @@ What type of website do you need?
                       )
                     })}
                   </div>
+
+                  {isDemoMode && (
+                    <div
+                      style={{
+                        marginTop: 16,
+                        padding: "14px 16px",
+                        borderRadius: 14,
+                        background: "rgba(212,168,71,0.08)",
+                        border: "1px solid rgba(212,168,71,0.3)",
+                        textAlign: "center",
+                      }}
+                    >
+                      <p style={{ fontSize: 13, fontWeight: 700, color: "#1f2937", marginBottom: 4 }}>
+                        Need something more advanced?
+                      </p>
+                      <p style={{ fontSize: 12, color: "#6b7280", lineHeight: 1.5, marginBottom: 12 }}>
+                        Our free demo only covers informational websites, blogs, news platforms and
+                        portfolios. For e-commerce stores, membership sites, ordering systems or other
+                        custom builds, we&apos;ll put together a tailored quote instead.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={switchToFullForm}
+                        className="luki-gold-button"
+                        style={{
+                          margin: "0 auto",
+                          padding: "11px 26px",
+                          borderRadius: 9999,
+                          fontWeight: 700,
+                          fontSize: 14,
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: 8,
+                        }}
+                      >
+                        Get a custom quote <ArrowRight style={{ width: 16, height: 16 }} />
+                      </button>
+                    </div>
+                  )}
                 </>
               )}
 
@@ -1465,6 +1535,7 @@ What type of website do you need?
                   <button
                     type="button"
                     onClick={goNext}
+                    className={isDemoMode ? "luki-gold-button" : undefined}
                     style={{
                       margin: "20px auto 0",
                       padding: "12px 32px",
@@ -1509,6 +1580,7 @@ What type of website do you need?
                   <button
                     type="button"
                     onClick={goNext}
+                    className={isDemoMode ? "luki-gold-button" : undefined}
                     style={{
                       margin: "20px auto 0",
                       padding: "12px 32px",
@@ -1554,6 +1626,7 @@ What type of website do you need?
                   <button
                     type="button"
                     onClick={goNext}
+                    className={isDemoMode ? "luki-gold-button" : undefined}
                     style={{
                       margin: "20px auto 0",
                       padding: "12px 32px",
@@ -1598,6 +1671,7 @@ What type of website do you need?
                   <button
                     type="button"
                     onClick={goNext}
+                    className={isDemoMode ? "luki-gold-button" : undefined}
                     style={{
                       margin: "20px auto 0",
                       padding: "12px 32px",
@@ -1642,6 +1716,7 @@ What type of website do you need?
                   <button
                     type="button"
                     onClick={goNext}
+                    className={isDemoMode ? "luki-gold-button" : undefined}
                     style={{
                       margin: "20px auto 0",
                       padding: "12px 32px",
@@ -1683,6 +1758,7 @@ What type of website do you need?
                   <button
                     type="button"
                     onClick={goNext}
+                    className={isDemoMode ? "luki-gold-button" : undefined}
                     style={{
                       margin: "20px auto 0",
                       padding: "12px 32px",
@@ -1724,6 +1800,7 @@ What type of website do you need?
                   <button
                     type="button"
                     onClick={goNext}
+                    className={isDemoMode ? "luki-gold-button" : undefined}
                     style={{
                       margin: "20px auto 0",
                       padding: "12px 32px",
@@ -1765,6 +1842,7 @@ What type of website do you need?
                   <button
                     type="button"
                     onClick={goNext}
+                    className={isDemoMode ? "luki-gold-button" : undefined}
                     style={{
                       margin: "20px auto 0",
                       padding: "12px 32px",
@@ -1811,7 +1889,7 @@ What type of website do you need?
                 {step > 1 && (
                   <button
                     type="button"
-                    onClick={() => { setShowLanding(true); setIsDemoMode(false); setCardRevealed(false); setShowSecret(false) }}
+                    onClick={resetForm}
                     style={{
                       background: "none",
                       border: "1px solid #e5e7eb",
@@ -2017,7 +2095,7 @@ What type of website do you need?
               <button
                 type="submit"
                 disabled={submitting}
-                className="flex items-center justify-center cursor-pointer"
+                className={`flex items-center justify-center cursor-pointer${isDemoMode ? " luki-gold-button" : ""}`}
                 style={{
                   width: "auto",
                   margin: "28px auto 0",
@@ -2064,7 +2142,7 @@ What type of website do you need?
                   </button>
                   <button
                     type="button"
-                    onClick={() => { setShowLanding(true); setIsDemoMode(false); setCardRevealed(false); setShowSecret(false) }}
+                    onClick={resetForm}
                     style={{
                       background: "none",
                       border: "1px solid #e5e7eb",

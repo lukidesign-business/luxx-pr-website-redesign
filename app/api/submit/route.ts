@@ -106,7 +106,7 @@ export async function POST(request: Request) {
   </div>
 
   <p style="text-align:center;color:#aaa;font-size:11px;margin-top:20px;">
-    Sent from lukidesign.business@gmail.com enquiry form
+    Sent from LUXX PR enquiry form
   </p>
 </div>
 </body>
@@ -116,7 +116,7 @@ export async function POST(request: Request) {
 
     const { error: resendError } = await resend.emails.send({
       from: "LuKi Design <noreply@resend.dev>",
-      to: ["lukidesign.business@gmail.com"],
+      to: ["info@luxxpr.com"],
       subject: `New Enquiry from ${sanitize(name)} — ${sanitize(businessName)}`,
       html: emailHtml,
       replyTo: email,
@@ -130,7 +130,7 @@ export async function POST(request: Request) {
       }, { status: 500 })
     }
 
-    console.log("[submit] Email sent successfully to lukidesign.business@gmail.com")
+    console.log("[submit] Email sent successfully to info@luxxpr.com")
     return NextResponse.json({ success: true, message: "Enquiry submitted successfully!" })
   } catch (err) {
     console.error("[submit] Unexpected error:", err)
