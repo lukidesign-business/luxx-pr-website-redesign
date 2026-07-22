@@ -93,7 +93,7 @@ export async function POST(request: Request) {
     <!-- HERO BANNER: LUXX image, contained (no stretch), with dark overlay -->
     <tr><td style="background-color:#0a1420;background-image:linear-gradient(rgba(6,14,22,0.72),rgba(6,14,22,0.82)),url('${bgUrl}');background-size:cover;background-position:center;border-radius:20px 20px 0 0;padding:44px 32px;text-align:center;">
       <img src="${logoUrl}" alt="LUXX PR" width="150" style="display:block;margin:0 auto 22px;max-width:150px;height:auto;" />
-      <span style="display:inline-block;background:linear-gradient(135deg,${accent} 0%,${isDemo ? "#e8bf5a" : "#6fa3c9"} 100%);color:#ffffff;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:10px 22px;border-radius:9999px;box-shadow:0 4px 12px ${isDemo ? "rgba(212,168,71,0.3)" : "rgba(90,127,163,0.25)"};">${titleText}</span>
+      <span style="display:inline-block;background:${accent};color:#ffffff;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:10px 22px;border-radius:50px;">${titleText}</span>
     </td></tr>
 
     <!-- CONTENT AREA -->
