@@ -281,20 +281,21 @@ function PriceChip({
       style={{
         display: "inline-flex",
         alignItems: "center",
-        gap: 6,
-        backgroundColor: accentLight,
-        border: `1px solid ${accentPrimary}`,
+        gap: 8,
+        background: "linear-gradient(155deg, #1c1c30 0%, #12121f 100%)",
+        border: `1px solid ${accentPrimary}40`,
+        boxShadow: `0 6px 18px rgba(0,0,0,0.25), inset 0 1px 0 ${accentPrimary}25`,
         borderRadius: 9999,
-        padding: "6px 14px",
+        padding: "7px 16px",
         marginTop: 28,
         marginBottom: 16,
         alignSelf: "center",
       }}
     >
-      <span style={{ fontSize: 11, fontWeight: 600, color: "#1e1e1e", textTransform: "uppercase", letterSpacing: "0.8px" }}>
+      <span style={{ fontSize: 11, fontWeight: 600, color: "rgba(255,255,255,0.55)", textTransform: "uppercase", letterSpacing: "0.8px" }}>
         Estimated
       </span>
-      <span style={{ fontSize: 14, fontWeight: 700, color: "#1d3557" }}>
+      <span style={{ fontSize: 14, fontWeight: 700, color: accentPrimary }}>
         {formatPrice(estimate.low)} – {formatPrice(estimate.high)}
       </span>
     </div>
@@ -675,54 +676,56 @@ export default function Home() {
           {estimate && (
             <div
               style={{
-                backgroundColor: accentLight,
-                border: `1px solid ${accentPrimary}`,
-                padding: 16,
-                borderRadius: 8,
+                background: "linear-gradient(155deg, #1c1c30 0%, #12121f 100%)",
+                border: `1px solid ${accentPrimary}40`,
+                boxShadow: `0 20px 45px rgba(0,0,0,0.35), inset 0 1px 0 ${accentPrimary}20`,
+                padding: 24,
+                borderRadius: 16,
                 marginTop: 40,
+                textAlign: "left",
               }}
             >
-              <p style={{ fontSize: 11, fontWeight: 700, color: accentPrimary, textTransform: "uppercase", letterSpacing: "1px", marginBottom: 10 }}>
+              <p style={{ fontSize: 11, fontWeight: 700, color: accentPrimary, textTransform: "uppercase", letterSpacing: "2px", marginBottom: 16, textAlign: "center" }}>
                 Your Estimate
               </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13 }}>
-                  <span style={{ color: "#6b7280" }}>Website type</span>
-                  <span style={{ fontWeight: 600, color: "#1f2937", textAlign: "right", maxWidth: "58%" }}>{formData.websiteType}</span>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", fontSize: 13, gap: 12 }}>
+                  <span style={{ color: "rgba(255,255,255,0.55)" }}>Website type</span>
+                  <span style={{ fontWeight: 600, color: "#f5f5f5", textAlign: "right", maxWidth: "58%" }}>{formData.websiteType}</span>
                 </div>
                 {formData.productCount && (
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13 }}>
-                    <span style={{ color: "#6b7280" }}>Products</span>
-                    <span style={{ fontWeight: 600, color: "#1f2937" }}>{formData.productCount}</span>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", fontSize: 13, gap: 12 }}>
+                    <span style={{ color: "rgba(255,255,255,0.55)" }}>Products</span>
+                    <span style={{ fontWeight: 600, color: "#f5f5f5" }}>{formData.productCount}</span>
                   </div>
                 )}
                 {formData.pageCount && (
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13 }}>
-                    <span style={{ color: "#6b7280" }}>Pages</span>
-                    <span style={{ fontWeight: 600, color: "#1f2937" }}>{formData.pageCount}</span>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", fontSize: 13, gap: 12 }}>
+                    <span style={{ color: "rgba(255,255,255,0.55)" }}>Pages</span>
+                    <span style={{ fontWeight: 600, color: "#f5f5f5" }}>{formData.pageCount}</span>
                   </div>
                 )}
                 {formData.contentReady && (
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13 }}>
-                    <span style={{ color: "#6b7280" }}>Content</span>
-                    <span style={{ fontWeight: 600, color: "#1f2937", textAlign: "right", maxWidth: "58%" }}>{formData.contentReady}</span>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", fontSize: 13, gap: 12 }}>
+                    <span style={{ color: "rgba(255,255,255,0.55)" }}>Content</span>
+                    <span style={{ fontWeight: 600, color: "#f5f5f5", textAlign: "right", maxWidth: "58%" }}>{formData.contentReady}</span>
                   </div>
                 )}
-                <div style={{ borderTop: `1px solid ${accentPrimary}33`, marginTop: 6, paddingTop: 10, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: "#1f2937" }}>Estimated total</span>
-                  <span style={{ fontSize: 18, fontWeight: 800, color: "#1d3557" }}>
+                <div style={{ borderTop: `1px solid ${accentPrimary}30`, marginTop: 6, paddingTop: 16, display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#f5f5f5" }}>Estimated total</span>
+                  <span style={{ fontSize: 22, fontWeight: 800, color: accentPrimary, letterSpacing: "-0.5px", whiteSpace: "nowrap" }}>
                     {formatPrice(estimate.low)} – {formatPrice(estimate.high)}
                   </span>
                 </div>
               </div>
-              <p style={{ fontSize: 11, color: "#9ca3af", marginTop: 10, lineHeight: 1.5 }}>
+              <p style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", marginTop: 16, lineHeight: 1.5, textAlign: "center" }}>
                 This is a rough estimate only. Final pricing will be confirmed after a discovery call with our team.
               </p>
             </div>
           )}
 
           <div style={{ paddingTop: 16, borderTop: "1px solid #e5e7eb", display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <LukiLogo onClick={() => { setShowLanding(true); setIsDemoMode(false); setCardRevealed(false); setShowSecret(false) }} />
+            <LukiLogo onClick={() => { setShowLanding(true); setIsDemoMode(false); setCardRevealed(false); setShowSecret(false); setSubmitted(false); resetForm() }} />
           </div>
         </div>
       </main>
@@ -1413,10 +1416,15 @@ export default function Home() {
         className="w-full flex flex-col flex-1 min-h-0"
         style={{
           maxWidth: 440,
-          backgroundColor: "#ffffff",
+          backgroundColor: isDemoMode ? "rgba(255, 255, 255, 0.95)" : "#ffffff",
+          backgroundImage: isDemoMode ? "linear-gradient(135deg, rgba(212,168,71,0.03) 0%, rgba(212,168,71,0.01) 100%)" : "none",
           borderRadius: 20,
-          boxShadow: "0 25px 50px rgba(0,0,0,0.25)",
+          border: isDemoMode ? "1px solid rgba(212,168,71,0.15)" : "none",
+          boxShadow: isDemoMode 
+            ? "0 25px 60px rgba(0,0,0,0.15), 0 0 1px rgba(212,168,71,0.2)" 
+            : "0 25px 50px rgba(0,0,0,0.25)",
           marginBottom: 16,
+          backdropFilter: isDemoMode ? "blur(8px)" : "none",
         }}
       >
         <div className="flex flex-col flex-1 min-h-0" style={{ padding: "30px 20px 30px 20px" }}>
@@ -1567,7 +1575,7 @@ What type of website do you need?
                     {isDemoMode ? "Free demos cover up to 5 pages" : "More pages means more design and content work"}
                   </p>
                   <div className="flex flex-col" style={{ gap: 8, marginTop: 10 }}>
-                    {PAGE_COUNTS.map((opt) => (
+                    {(isDemoMode ? DEMO_PAGE_COUNTS : PAGE_COUNTS).map((opt) => (
                       <OptionCard
                         key={opt}
                         label={opt}
@@ -1610,7 +1618,7 @@ What type of website do you need?
                   </h2>
                   <input
                     type="text"
-                    placeholder="e.g., myawesomesite.ie"
+                    placeholder="e.g., yourwebsite.com"
                     value={formData.domainName}
                     onChange={(e) => setFormData((p) => ({ ...p, domainName: e.target.value }))}
                     style={{
