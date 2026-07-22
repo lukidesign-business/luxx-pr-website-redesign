@@ -722,7 +722,7 @@ export default function Home() {
           )}
 
           <div style={{ paddingTop: 16, borderTop: "1px solid #e5e7eb", display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <LukiLogo onClick={() => { setShowLanding(true); setIsDemoMode(false); setCardRevealed(false); setShowSecret(false) }} />
+            <LukiLogo onClick={() => { setShowLanding(true); setIsDemoMode(false); setCardRevealed(false); setShowSecret(false); setSubmitted(false); resetForm() }} />
           </div>
         </div>
       </main>
@@ -1413,10 +1413,15 @@ export default function Home() {
         className="w-full flex flex-col flex-1 min-h-0"
         style={{
           maxWidth: 440,
-          backgroundColor: "#ffffff",
+          backgroundColor: isDemoMode ? "rgba(255, 255, 255, 0.95)" : "#ffffff",
+          backgroundImage: isDemoMode ? "linear-gradient(135deg, rgba(212,168,71,0.03) 0%, rgba(212,168,71,0.01) 100%)" : "none",
           borderRadius: 20,
-          boxShadow: "0 25px 50px rgba(0,0,0,0.25)",
+          border: isDemoMode ? "1px solid rgba(212,168,71,0.15)" : "none",
+          boxShadow: isDemoMode 
+            ? "0 25px 60px rgba(0,0,0,0.15), 0 0 1px rgba(212,168,71,0.2)" 
+            : "0 25px 50px rgba(0,0,0,0.25)",
           marginBottom: 16,
+          backdropFilter: isDemoMode ? "blur(8px)" : "none",
         }}
       >
         <div className="flex flex-col flex-1 min-h-0" style={{ padding: "30px 20px 30px 20px" }}>
